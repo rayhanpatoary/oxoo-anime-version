@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.oxoo.spagreen">
+    package="com.anime.spagreen">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".utils.MyAppClass"
+        android:name="com.anime.spagreen.utils.MyAppClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,11 +15,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AnimePlayerActivity"
+            android:name="com.anime.spagreen.AnimePlayerActivity"
             android:label="@string/title_activity_anime_player"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".AnimeDetailsActivity"
+            android:name="com.anime.spagreen.AnimeDetailsActivity"
             android:label="@string/title_activity_anime_details"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -28,50 +28,50 @@
             android:value="@string/admob_app_id" />
 
         <activity
-            android:name=".TermsActivity"
+            android:name="com.anime.spagreen.TermsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".ReplyActivity"
+            android:name="com.anime.spagreen.ReplyActivity"
             android:label="@string/title_activity_reply"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.anime.spagreen.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".PassResetActivity"
+            android:name="com.anime.spagreen.PassResetActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".SearchActivity"
+            android:name="com.anime.spagreen.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".SignUpActivity"
+            android:name="com.anime.spagreen.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.anime.spagreen.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".DetailsActivity"
+            android:name="com.anime.spagreen.DetailsActivity"
             android:configChanges="screenLayout|screenSize|orientation"
             android:label="@string/title_activity_details"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- android:configChanges="screenLayout|screenSize|orientation" -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.anime.spagreen.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.anime.spagreen.SettingsActivity"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".SplashscreenActivity"
+            android:name="com.anime.spagreen.SplashscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme">
@@ -82,16 +82,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ItemMovieActivity"
+            android:name="com.anime.spagreen.ItemMovieActivity"
             android:label="@string/title_activity_item_show"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ItemTVActivity"
+            android:name="com.anime.spagreen.ItemTVActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
         <activity
-            android:name=".ItemSeriesActivity"
+            android:name="com.anime.spagreen.ItemSeriesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Nobar" />
     </application>

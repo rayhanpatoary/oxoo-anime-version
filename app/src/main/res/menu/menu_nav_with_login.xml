@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/outline_home_24"
+            android:title="Home"/>
+        <item
+            android:id="@+id/nav_latest_epi"
+            android:icon="@drawable/exo_controls_play"
+            android:title="Latest Episodes"/>
+        <item
+            android:id="@+id/nav_movies"
+            android:icon="@drawable/outline_movie_24"
+            android:title="Anime Movies"/>
+        <item
+            android:id="@+id/nav_tv_series"
+            android:icon="@drawable/outline_movie_24"
+            android:title="Anime TV Series"/>
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_action_search"
+            android:title="Search"/>
+        <item
+            android:id="@+id/nav_fav"
+            android:icon="@drawable/outline_favorite_24"
+            android:title="Favorite"/>
+        <item
+            android:id="@+id/nav_watch_later"
+            android:icon="@drawable/ic_action_search"
+            android:title="Watch Later"/>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/outline_lock_24"
+            android:title="Sign Out"/>
+
+    </group>
+
+    <item android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/nav_feedback"
+                android:title="Feedback"
+                android:icon="@drawable/outline_folder_24"/>
+            <item
+                android:id="@+id/nav_about"
+                android:title="About Us"
+                android:icon="@drawable/outline_folder_24"/>
+            <item
+                android:id="@+id/nav_settings"
+                android:title="Settings"
+                android:icon="@drawable/outline_settings_24"/>
+
+        </menu>
+    </item>
+
+</menu>

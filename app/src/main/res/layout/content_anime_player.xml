@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AnimePlayerActivity"
+    tools:showIn="@layout/activity_anime_player">
+
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_epi"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/play"
+        android:layout_below="@+id/ll_header"
+        android:background="@color/black"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:focusable="true">
+
+        <FrameLayout
+            android:id="@+id/player_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/img_full_scr"
+                app:srcCompat="@drawable/ic_full"
+                android:layout_gravity="end|bottom"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="42dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp" />
+
+            <com.google.android.exoplayer2.ui.SubtitleView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+        <WebView
+            android:id="@+id/webView"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </WebView>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_outline_play_circle_filled_24px"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

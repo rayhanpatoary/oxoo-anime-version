@@ -1,0 +1,125 @@
+<resources>
+
+    <string name="app_name">OXOO</string>
+    <!--app_title for main navigation & home title-->
+    <string name="app_title">OXOO - Live TV &amp; Movie</string>
+    <string name="app_version">1.0</string>
+    <string name="contact_email">contact@spagreen.net</string>
+    <string name="copyright_text">Copyright @ Spagreen \nAll right reserved</string>
+
+
+    <!--API -->
+    <!-- copy your api url from php admin dashboard & paste bellow string tag -->
+    <string name="api_url">http://ovoo.spagreen.net/api/api/</string>
+    <!-- copy your api key from php admin dashboard & paste bellow string tag -->
+    <string name="api_key">api2018forovoo</string>
+    <string name="terms_url">http://ovoo.spagreen.net/api/page/privacy-and-policy</string>
+
+    <!--Admob-->
+    <!-- Admob app ID-->
+    <string name="admob_app_id">ca-app-pub-8804184340526788~7833821786</string>
+    <!--Admob baner ad ID-->
+    <string name="admob_ad_id">ca-app-pub-8804184340526788/4860830623</string>
+    <!--Admob interstitial ad ID-->
+    <string name="admob_full_ad_id">cca-app-pub-8804184340526788/1356699880</string>
+
+
+    <!-- App -->
+    <string name="featured_tv_channels">Featured Tv Channel</string>
+    <string name="latest_movie">Latest Movies</string>
+    <string name="latest_tv_series">Latest Tv Series</string>
+    <string name="more">More</string>
+    <string name="movie">Movies</string>
+    <string name="live_tv">Live TV</string>
+    <string name="tv_series">TV Series</string>
+    <string name="country">Country</string>
+    <string name="genre">Genre</string>
+    <string name="fav">Favorite</string>
+    <string name="search">Search</string>
+    <string name="no_item_found">No item found</string>
+    <string name="cast_n_crew">Cast and Crew</string>
+    <string name="related_movie">Related Movie</string>
+    <string name="signin">Signin</string>
+    <string name="reset">Reset Password</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="save">Save</string>
+    <string name="director">Director</string>
+    <string name="description">Description</string>
+    <string name="comments">Comments</string>
+    <string name="your_comments">Your Comments</string>
+    <string name="add_comments">Add Comments</string>
+    <string name="no_internet">No internet connection !</string>
+    <string name="copyright">Copyright</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="fetch_error">Unable to fetch data</string>
+    <string name="login_first">You need to login first</string>
+    <string name="comment_empty">Comment can not empty</string>
+    <string name="error_toast">Something went wrong ! try later</string>
+
+    <string-array name="nav_item_name">
+        <item>Home</item>
+        <item>Movies</item>
+        <item>Live TV</item>
+        <item>TV Series</item>
+        <item>Genre</item>
+        <item>Country</item>
+        <item>Profile</item>
+        <item>Favorite</item>
+        <item>Sign Out</item>
+        <item>Settings</item>
+    </string-array>
+
+    <string-array name="nav_item_image">
+        <item>outline_home_24</item>
+        <item>outline_movie_24</item>
+        <item>outline_live_tv_24</item>
+        <item>outline_local_movies_24</item>
+        <item>outline_folder_24</item>
+        <item>outline_outlined_flag_24</item>
+        <item>outline_person_24</item>
+        <item>outline_favorite_border_24</item>
+        <item>outline_lock_24</item>
+        <item>outline_settings_24</item>
+    </string-array>
+
+    <string-array name="nav_item_name_2">
+        <item>Home</item>
+        <item>Movies</item>
+        <item>Live TV</item>
+        <item>TV Series</item>
+        <item>Genre</item>
+        <item>Country</item>
+        <item>Login</item>
+        <item>Settings</item>
+    </string-array>
+
+    <string-array name="nav_item_image_2">
+        <item>outline_home_24</item>
+        <item>outline_movie_24</item>
+        <item>outline_live_tv_24</item>
+        <item>outline_local_movies_24</item>
+        <item>outline_folder_24</item>
+        <item>outline_outlined_flag_24</item>
+        <item>outline_lock_24</item>
+        <item>outline_settings_24</item>
+    </string-array>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+
+    <!-- Example settings for Data & Sync -->
+
+    <!-- Example settings for Notifications -->
+
+    <string name="title_activity_player">PlayerActivity</string>
+
+    <string name="title_activity_item_show">ItemShowActivity</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_reply">ReplyActivity</string>
+    <string name="title_activity_anime_details">AnimeDetailsActivity</string>
+    <string name="title_activity_anime_player">AnimePlayerActivity</string>
+</resources>

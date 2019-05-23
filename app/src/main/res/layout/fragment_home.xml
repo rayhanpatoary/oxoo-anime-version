@@ -129,7 +129,6 @@
 
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_large"
@@ -143,7 +142,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/featured_tv_channels"
+                        android:text="@string/latest_episodes"
                         android:textAppearance="@style/TextAppearance.Title" />
 
                     <Button
@@ -161,8 +160,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
-                    android:id="@+id/recyclerViewTv"
+                    android:id="@+id/recyclerViewEpisodes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -218,7 +216,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/latest_tv_series"
+                        android:text="@string/new_anime"
                         android:textAppearance="@style/TextAppearance.Title" />
 
                     <Button

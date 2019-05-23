@@ -14,7 +14,6 @@
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <View

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anime.spagreen.AnimePlayerActivity;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.anime.spagreen.AnimeDetailsActivity;
 import com.anime.spagreen.DetailsActivity;
@@ -51,10 +52,18 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Origin
             @Override
             public void onClick(View v) {
 
-
                 if (obj.getVideoType().equals("tvseries")){
                     Intent intent=new Intent(ctx, AnimeDetailsActivity.class);
                     intent.putExtra("vType",obj.getVideoType());
+                    intent.putExtra("id",obj.getId());
+
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    ctx.startActivity(intent);
+                }
+
+                else if (obj.getVideoType().equals("epi")){
+                    Intent intent=new Intent(ctx, AnimePlayerActivity.class);
+                    //intent.putExtra("vType",obj.getVideoType());
                     intent.putExtra("id",obj.getId());
 
                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

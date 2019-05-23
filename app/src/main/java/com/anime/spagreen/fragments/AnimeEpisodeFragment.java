@@ -1,6 +1,7 @@
 package com.anime.spagreen.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class AnimeEpisodeFragment extends Fragment {
     private RecyclerView rvEpisode;
     private String type="",id="";
     private ImageView imageView;
+    private View progressBar;
+
 
     @Nullable
     @Override
@@ -51,6 +54,7 @@ public class AnimeEpisodeFragment extends Fragment {
 
         rvEpisode=view.findViewById(R.id.rv_episode_list);
         imageView=view.findViewById(R.id.imageview);
+        progressBar=view.findViewById(R.id.progressBar);
 
 
         episodeAdapter=new EpisodeAdapter(getContext(),listEpisodes);
@@ -77,13 +81,17 @@ public class AnimeEpisodeFragment extends Fragment {
         String id = "&id="+vId;
         String url = new ApiResources().getDetails()+type+id;
 
+        Log.e("JSON URL :::", url);
+
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 //                swipeRefreshLayout.setRefreshing(false);
 //                shimmerFrameLayout.stopShimmer();
 //                shimmerFrameLayout.setVisibility(GONE);
+                progressBar.setVisibility(View.GONE);
                 try {
+
 
                     Picasso.get().load(response.getString("poster_url")).into(imageView);
 
@@ -116,6 +124,7 @@ public class AnimeEpisodeFragment extends Fragment {
                             model.setStreamURL(object.getString("file_url"));
                             model.setTitle(response.getString("title"));
                             model.setServerType(object.getString("file_type"));
+                            model.setEpiID(object.getString("episodes_id"));
                             epList.add(model);
                         }
                         models.setListEpi(epList);
@@ -139,6 +148,7 @@ public class AnimeEpisodeFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
             }
         });
         new VolleySingleton(getContext()).addToRequestQueue(jsonObjectRequest);

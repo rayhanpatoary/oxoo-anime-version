@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anime.spagreen.AnimeDetailsActivity;
+import com.anime.spagreen.AnimePlayerActivity;
 import com.anime.spagreen.DetailsActivity;
 import com.anime.spagreen.R;
 import com.anime.spagreen.models.CommonModels;
@@ -56,6 +57,12 @@ public class CommonGridAdapter extends RecyclerView.Adapter<CommonGridAdapter.Or
                     intent.putExtra("vType",obj.getVideoType());
                     intent.putExtra("id",obj.getId());
                     ctx.startActivity(intent);
+                }else if (obj.getVideoType().equals("epi")){
+
+                    Intent intent=new Intent(ctx, AnimePlayerActivity.class);
+                    intent.putExtra("id",obj.getId());
+                    ctx.startActivity(intent);
+
                 }else {
                     Intent intent=new Intent(ctx,DetailsActivity.class);
                     intent.putExtra("vType",obj.getVideoType());

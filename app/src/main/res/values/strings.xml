@@ -12,7 +12,7 @@
     <!-- copy your api url from php admin dashboard & paste bellow string tag -->
     <string name="api_url">http://redtvlive.com/api_anime/</string>
     <!-- copy your api key from php admin dashboard & paste bellow string tag -->
-    <string name="api_key">inwgyd7rz1f755jzmn7b4eho</string>
+    <string name="api_key">3fjhqprdt0srqa7ro11upct7</string>
     <string name="terms_url">http://redtvlive.com/terms/</string>
     <string name="about_url">http://redtvlive.com/about/</string>
 
@@ -26,9 +26,11 @@
 
 
     <!-- App -->
+    <string name="latest_episodes">Latest Episodes</string>
     <string name="featured_tv_channels">Featured Tv Channel</string>
     <string name="latest_movie">Latest Movies</string>
     <string name="latest_tv_series">Latest Tv Series</string>
+    <string name="new_anime">New Anime</string>
     <string name="more">More</string>
     <string name="movie">Movies</string>
     <string name="live_tv">Live TV</string>
@@ -121,6 +123,7 @@
     <string name="title_activity_item_show">ItemShowActivity</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="title_activity_reply">ReplyActivity</string>
-    <string name="title_activity_anime_details">AnimeDetailsActivity</string>
+    <string name="title_activity_anime_details">Animor</string>
     <string name="title_activity_anime_player">AnimePlayerActivity</string>
+    <string name="title_activity_item_anime">ItemAnimeActivity</string>
 </resources>

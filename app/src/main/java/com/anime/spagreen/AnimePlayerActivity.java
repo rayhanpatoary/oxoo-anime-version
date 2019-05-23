@@ -1,10 +1,20 @@
 package com.anime.spagreen;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.anime.spagreen.utils.ApiResources;
+import com.anime.spagreen.utils.ToastMsg;
+import com.anime.spagreen.utils.VolleySingleton;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -42,6 +52,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import at.huber.youtubeExtractor.VideoMeta;
 import at.huber.youtubeExtractor.YouTubeExtractor;
 import at.huber.youtubeExtractor.YtFile;
@@ -64,8 +76,12 @@ public class AnimePlayerActivity extends AppCompatActivity {
     public static ImageView imgFull;
     public static RelativeLayout lPlay;
 
-    private TextView tvTitle,tvEpi;
-    private LinearLayout lHeader;
+    private TextView tvTitle,tvEpi,tvPrev,tvNext;
+    private LinearLayout lHeader,lAddFav;
+    private boolean hasPrev=false,hasNext=false;
+    private String prevID="0",nextID="0",videoID="0";
+    private ImageView imgFav;
+    private View progressView;
 
 
     @Override
@@ -74,6 +90,8 @@ public class AnimePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anime_player);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Anime");
 
         simpleExoPlayerView = findViewById(R.id.video_view);
         subtitleView=findViewById(R.id.subtitle);
@@ -87,11 +105,15 @@ public class AnimePlayerActivity extends AppCompatActivity {
         tvEpi=findViewById(R.id.tv_epi);
         tvTitle=findViewById(R.id.tv_title);
         lHeader=findViewById(R.id.ll_header);
+        lAddFav=findViewById(R.id.add_fav);
+        tvPrev=findViewById(R.id.tv_prev);
+        tvNext=findViewById(R.id.tv_next);
+        imgFav=findViewById(R.id.image_fav);
+        progressView=findViewById(R.id.progress_view);
 
-        tvTitle.setText(getIntent().getStringExtra("title"));
-        tvEpi.setText("Episode: "+getIntent().getStringExtra("epi"));
 
-
+        final String id = getIntent().getStringExtra("id");
+        String url = new ApiResources().getEpisodeDetails()+"&type=ep&id="+id;
 
         playerHeight = lPlay.getLayoutParams().height;
 
@@ -102,8 +124,6 @@ public class AnimePlayerActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
-
-
 
         imgFull.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,22 +145,143 @@ public class AnimePlayerActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+        tvPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hasPrev){
+                    Intent intent=new Intent(AnimePlayerActivity.this,AnimePlayerActivity.class);
+                    intent.putExtra("id",prevID);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+        tvNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hasNext){
+                    Intent intent=new Intent(AnimePlayerActivity.this,AnimePlayerActivity.class);
+                    intent.putExtra("id",nextID);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+        lAddFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
+
+                if (preferences.getBoolean("status",false)){
+
+                    String url = new ApiResources().getAddFav()+"&&user_id="+preferences.getString("id","0")+"&&videos_id="+videoID+"&&ep_id="+id;
+
+
+                    addToFav(url);
+
+
+                }else {
+                    startActivity(new Intent(AnimePlayerActivity.this,LoginActivity.class));
+                }
+
+
+
 
             }
         });
 
-        String url = getIntent().getStringExtra("url");
-        String type = getIntent().getStringExtra("file_type");
+        getData(url);
+
+    }
 
 
-        iniMoviePlayer(url,type,this);
+    private void addToFav(String url){
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
 
+                try {
 
+                    if (response.getString("status").equals("success")){
+                        new ToastMsg(AnimePlayerActivity.this).toastIconSuccess(response.getString("message"));
+                        //isFav=true;
+                        imgFav.setBackgroundResource(R.drawable.outline_favorite_24);
+                    }else {
+                        new ToastMsg(AnimePlayerActivity.this).toastIconError(response.getString("message"));
+                    }
+
+                }catch (Exception e){
+
+                }finally {
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                new ToastMsg(AnimePlayerActivity.this).toastIconError(getString(R.string.error_toast));
+            }
+        });
+        new VolleySingleton(AnimePlayerActivity.this).addToRequestQueue(jsonObjectRequest);
 
 
     }
 
 
+
+    private void getData(String url){
+
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                progressView.setVisibility(GONE);
+
+                try {
+
+                    tvTitle.setText(response.getString("title"));
+                    tvEpi.setText(response.getString("episodes_name"));
+
+                    String media_url = response.getString("file_url");
+                    String type = response.getString("file_source");
+                    videoID=response.getString("videos_id");
+
+                    iniMoviePlayer(media_url,type,AnimePlayerActivity.this);
+
+                    if (response.getString("has_prev_ep").equals("1")){
+                        hasPrev=true;
+                        prevID = response.getString("prev_ep_id");
+                    }
+                    if (response.getString("has_next_ep").equals("1")){
+                        hasNext=true;
+                        nextID=response.getString("next_ep_id");
+                    }
+
+
+                }catch (Exception e){
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressView.setVisibility(GONE);
+
+            }
+        });
+
+
+        Volley.newRequestQueue(AnimePlayerActivity.this).add(jsonObjectRequest);
+
+
+
+    }
 
     private void initWeb(String s){
 

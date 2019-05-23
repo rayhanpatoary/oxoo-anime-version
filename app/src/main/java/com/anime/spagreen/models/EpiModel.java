@@ -1,7 +1,15 @@
 package com.anime.spagreen.models;
 
 public class EpiModel {
-    String seson,epi,streamURL,serverType,title;
+    String seson,epi,streamURL,serverType,title,epiID;
+
+    public String getEpiID() {
+        return epiID;
+    }
+
+    public void setEpiID(String epiID) {
+        this.epiID = epiID;
+    }
 
     public String getTitle() {
         return title;

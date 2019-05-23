@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
+import com.anime.spagreen.fragments.AnimeFragment;
+import com.anime.spagreen.utils.ApiResources;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.fragment.app.Fragment;
@@ -221,7 +223,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 menuItem.setChecked(true);
                 break;
             case R.id.nav_latest_epi:
-
+                loadFragment(new AnimeFragment());
+                menuItem.setChecked(true);
                 break;
             case R.id.nav_movies:
                 loadFragment(new MoviesFragment());
@@ -231,13 +234,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 loadFragment(new TvSeriesFragment());
                 menuItem.setChecked(true);
                 break;
-
+            case R.id.nav_about:
+                Intent intent1 = new Intent(MainActivity.this,TermsActivity.class);
+                intent1.putExtra("url",new ApiResources().getAboutUS());
+                startActivity(intent1);
+                break;
+            case R.id.nav_feedback:
+                Intent intentf = new Intent(MainActivity.this,FeedBackActivity.class);
+                startActivity(intentf);
+                break;
 
         }
-
         mDrawerLayout.closeDrawers();
-
-
         return true;
     }
 

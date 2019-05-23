@@ -31,8 +31,6 @@ public class AnimeDetailsActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager =  findViewById(R.id.pager);
@@ -40,8 +38,6 @@ public class AnimeDetailsActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-
-
 
 
     }

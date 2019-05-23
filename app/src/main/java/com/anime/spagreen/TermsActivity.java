@@ -34,7 +34,7 @@ public class TermsActivity extends AppCompatActivity {
         webView=findViewById(R.id.webView);
         webView.setWebViewClient(new SpaGreenWebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
-        webView.loadUrl(new ApiResources().getTermsURL());
+        webView.loadUrl(getIntent().getStringExtra("url"));
 
 
 

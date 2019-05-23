@@ -53,6 +53,31 @@ public class ApiResources {
     String genreMovieURL = URL+"/get_features_genre_and_movie?"+API_SECRECT_KEY;
 
     String userDetailsByID = URL+"/get_user_details_by_user_id?"+API_SECRECT_KEY;
+    String latestEpisodes = URL+"get_latest_episodes?"+API_SECRECT_KEY;
+    String addEpisodeToFav = URL+"add_favorite?"+API_SECRECT_KEY;
+    String episodeDetails = URL+"get_single_details?"+API_SECRECT_KEY;
+    String aboutUS = "http://ovoo.spagreen.net/about/";
+    String sendFeedback=URL+"feedback?"+API_SECRECT_KEY;
+
+    public String getSendFeedback() {
+        return sendFeedback;
+    }
+
+    public String getAboutUS() {
+        return aboutUS;
+    }
+
+    public String getEpisodeDetails() {
+        return episodeDetails;
+    }
+
+    public String getAddEpisodeToFav() {
+        return addEpisodeToFav;
+    }
+
+    public String getLatestEpisodes() {
+        return latestEpisodes;
+    }
 
     public String getUserDetailsByID() {
         return userDetailsByID;

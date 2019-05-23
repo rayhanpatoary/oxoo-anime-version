@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.anime.spagreen.R;
+import com.anime.spagreen.adapters.AnimeRelatedAdapter;
 import com.anime.spagreen.adapters.HomePageAdapter;
 import com.anime.spagreen.models.CommonModels;
 import com.anime.spagreen.utils.ApiResources;
@@ -36,7 +37,8 @@ public class AnimeRealatedFragment extends Fragment {
     private RecyclerView rvRelated;
     private List<CommonModels> listRelated =new ArrayList<>();
 
-    private HomePageAdapter relatedAdapter;
+    private AnimeRelatedAdapter relatedAdapter;
+    private View progressBar;
 
     @Nullable
     @Override
@@ -51,10 +53,11 @@ public class AnimeRealatedFragment extends Fragment {
 
         imageView=view.findViewById(R.id.imageview);
         rvRelated=view.findViewById(R.id.rv_related);
+        progressBar=view.findViewById(R.id.progressBar);
 
 
-        relatedAdapter=new HomePageAdapter(getContext(),listRelated);
-        rvRelated.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        relatedAdapter=new AnimeRelatedAdapter(getContext(),listRelated);
+        rvRelated.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRelated.setHasFixedSize(true);
         rvRelated.setAdapter(relatedAdapter);
 
@@ -80,6 +83,7 @@ public class AnimeRealatedFragment extends Fragment {
 //                swipeRefreshLayout.setRefreshing(false);
 //                shimmerFrameLayout.stopShimmer();
 //                shimmerFrameLayout.setVisibility(GONE);
+                progressBar.setVisibility(View.GONE);
                 try {
 
 
@@ -114,6 +118,7 @@ public class AnimeRealatedFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
             }
         });
         new VolleySingleton(getContext()).addToRequestQueue(jsonObjectRequest);

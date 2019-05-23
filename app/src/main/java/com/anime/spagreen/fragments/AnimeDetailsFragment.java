@@ -1,10 +1,14 @@
 package com.anime.spagreen.fragments;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,20 +19,27 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.anime.spagreen.AnimePlayerActivity;
+import com.anime.spagreen.LoginActivity;
 import com.anime.spagreen.R;
 import com.anime.spagreen.utils.ApiResources;
+import com.anime.spagreen.utils.ToastMsg;
 import com.anime.spagreen.utils.VolleySingleton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class AnimeDetailsFragment extends Fragment {
 
 
     private TextView tvName,tvDirector,tvRelease,tvCast,tvDes,tvGenre,tvRelated;
     private String strDirector="",strCast="",strGenre="",type="",id="";
-    private ImageView imageView;
+    private ImageView imageView,imageViewThumb,imgFav;
+    private View vAddFav;
+    private View progressBar;
 
     @Nullable
     @Override
@@ -49,12 +60,75 @@ public class AnimeDetailsFragment extends Fragment {
         tvDirector=view.findViewById(R.id.tv_director);
         tvGenre=view.findViewById(R.id.tv_genre);
         imageView=view.findViewById(R.id.imageview);
+        imageViewThumb=view.findViewById(R.id.imageview_thumb);
+        vAddFav=view.findViewById(R.id.add_fav);
+        imgFav=view.findViewById(R.id.image_fav);
+        progressBar=view.findViewById(R.id.progressBar);
 
         type = getActivity().getIntent().getStringExtra("vType");
         id = getActivity().getIntent().getStringExtra("id");
 
 
+
+        vAddFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences preferences=getActivity().getSharedPreferences("user",MODE_PRIVATE);
+
+                if (preferences.getBoolean("status",false)){
+
+                    String url = new ApiResources().getAddFav()+"&&user_id="+preferences.getString("id","0")+"&&videos_id="+id;
+
+
+                    addToFav(url);
+
+
+                }else {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                }
+
+            }
+        });
+
+
         getSeriesData(type,id);
+
+
+    }
+
+
+    private void addToFav(String url){
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+                try {
+
+                    if (response.getString("status").equals("success")){
+                        new ToastMsg(getContext()).toastIconSuccess(response.getString("message"));
+                        //isFav=true;
+                        imgFav.setBackgroundResource(R.drawable.outline_favorite_24);
+                    }else {
+                        new ToastMsg(getContext()).toastIconError(response.getString("message"));
+                    }
+
+                }catch (Exception e){
+
+                }finally {
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                new ToastMsg(getContext()).toastIconError(getString(R.string.error_toast));
+
+            }
+        });
+        new VolleySingleton(getContext()).addToRequestQueue(jsonObjectRequest);
 
 
     }
@@ -72,11 +146,14 @@ public class AnimeDetailsFragment extends Fragment {
 //                swipeRefreshLayout.setRefreshing(false);
 //                shimmerFrameLayout.stopShimmer();
 //                shimmerFrameLayout.setVisibility(GONE);
+                progressBar.setVisibility(View.GONE);
+
                 try {
                     tvName.setText(response.getString("title"));
                     tvRelease.setText("Release On "+response.getString("release"));
                     tvDes.setText(response.getString("description"));
                     Picasso.get().load(response.getString("poster_url")).into(imageView);
+                    Picasso.get().load(response.getString("thumbnail_url")).into(imageViewThumb);
 
                     //----director---------------
                     JSONArray directorArray = response.getJSONArray("director");
@@ -116,62 +193,6 @@ public class AnimeDetailsFragment extends Fragment {
                     }
                     tvGenre.setText(strGenre);
 
-                    //----realted post---------------
-//                    JSONArray relatedArray = response.getJSONArray("related_tvseries");
-//                    for (int i = 0;i<relatedArray.length();i++){
-//                        JSONObject jsonObject=relatedArray.getJSONObject(i);
-//
-//                        CommonModels models=new CommonModels();
-//                        models.setTitle(jsonObject.getString("title"));
-//                        models.setImageUrl(jsonObject.getString("thumbnail_url"));
-//                        models.setId(jsonObject.getString("videos_id"));
-//                        models.setVideoType("tvseries");
-//
-//                        listRelated.add(models);
-//                    }
-//                    relatedAdapter.notifyDataSetChanged();
-
-
-
-                    //----episode------------
-//                    JSONArray mainArray = response.getJSONArray("season");
-//
-//
-//                    for (int i = 0;i<mainArray.length();i++){
-//                        //epList.clear();
-//
-//                        JSONObject jsonObject=mainArray.getJSONObject(i);
-//
-//                        CommonModels models=new CommonModels();
-//                        String season_name=jsonObject.getString("seasons_name");
-//                        models.setTitle(jsonObject.getString("seasons_name"));
-//
-//
-//                        Log.e("Season Name 1::",jsonObject.getString("seasons_name"));
-//
-//                        JSONArray episodeArray=jsonObject.getJSONArray("episodes");
-//                        List<EpiModel> epList=new ArrayList<>();
-//
-//                        for (int j=0;j<episodeArray.length();j++){
-//
-//                            JSONObject object =episodeArray.getJSONObject(j);
-//
-//                            EpiModel model=new EpiModel();
-//                            model.setSeson(season_name);
-//                            model.setEpi(object.getString("episodes_name"));
-//                            model.setStreamURL(object.getString("file_url"));
-//                            model.setServerType(object.getString("file_type"));
-//                            epList.add(model);
-//                        }
-//                        models.setListEpi(epList);
-//                        listDirector.add(models);
-//
-//                        episodeAdapter=new EpisodeAdapter(DetailsActivity.this,listDirector);
-//                        rvServer.setAdapter(episodeAdapter);
-//                        episodeAdapter.notifyDataSetChanged();
-//
-//                    }
-
 
                 }catch (Exception e){
 
@@ -184,6 +205,7 @@ public class AnimeDetailsFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
             }
         });
         new VolleySingleton(getContext()).addToRequestQueue(jsonObjectRequest);

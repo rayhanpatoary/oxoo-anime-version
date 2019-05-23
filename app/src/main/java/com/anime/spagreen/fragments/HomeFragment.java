@@ -28,17 +28,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.anime.spagreen.ItemEpiActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.anime.spagreen.DetailsActivity;
 import com.anime.spagreen.ItemMovieActivity;
 import com.anime.spagreen.ItemSeriesActivity;
-import com.anime.spagreen.ItemTVActivity;
 import com.anime.spagreen.R;
 import com.anime.spagreen.adapters.GenreHomeAdapter;
 import com.anime.spagreen.adapters.HomePageAdapter;
-import com.anime.spagreen.adapters.LiveTvHomeAdapter;
 import com.anime.spagreen.models.CommonModels;
 import com.anime.spagreen.models.GenreModel;
 import com.anime.spagreen.utils.ApiResources;
@@ -66,11 +65,11 @@ public class HomeFragment extends Fragment {
     private Timer timer;
 
     private ShimmerFrameLayout shimmerFrameLayout;
-    private RecyclerView recyclerViewMovie,recyclerViewTv,recyclerViewTvSeries,recyclerViewGenre;
-    private HomePageAdapter adapterMovie,adapterSeries;
-    private LiveTvHomeAdapter adapterTv;
+    private RecyclerView recyclerViewMovie,recyclerViewEpisodes,recyclerViewTvSeries,recyclerViewGenre;
+    private HomePageAdapter adapterMovie,adapterSeries,adapterEpisodes;
+//    private HomePageAdapter adapterTv;
     private List<CommonModels> listMovie =new ArrayList<>();
-    private List<CommonModels> listTv =new ArrayList<>();
+    private List<CommonModels> listEpisodes =new ArrayList<>();
     private List<CommonModels> listSeries =new ArrayList<>();
     private ApiResources apiResources;
     private Button btnMoreMovie,btnMoreTv,btnMoreSeries;
@@ -135,12 +134,12 @@ public class HomeFragment extends Fragment {
 
 
         //----featured tv recycler view-----------------
-        recyclerViewTv = view.findViewById(R.id.recyclerViewTv);
-        recyclerViewTv.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        recyclerViewTv.setHasFixedSize(true);
-        recyclerViewTv.setNestedScrollingEnabled(false);
-        adapterTv = new LiveTvHomeAdapter(getContext(), listTv);
-        recyclerViewTv.setAdapter(adapterTv);
+        recyclerViewEpisodes = view.findViewById(R.id.recyclerViewEpisodes);
+        recyclerViewEpisodes.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        recyclerViewEpisodes.setHasFixedSize(true);
+        recyclerViewEpisodes.setNestedScrollingEnabled(false);
+        adapterEpisodes = new HomePageAdapter(getContext(), listEpisodes);
+        recyclerViewEpisodes.setAdapter(adapterEpisodes);
 
 
         //----movie's recycler view-----------------
@@ -177,7 +176,7 @@ public class HomeFragment extends Fragment {
 
         if (new NetworkInst(getContext()).isNetworkAvailable()){
 
-                getFeaturedTV();
+                getLatestEpisodes();
                 getSlider(apiResources.getSlider());
                 getLatestSeries();
                 getLatestMovie();
@@ -197,19 +196,19 @@ public class HomeFragment extends Fragment {
             public void onRefresh() {
 
                 recyclerViewMovie.removeAllViews();
-                recyclerViewTv.removeAllViews();
+                recyclerViewEpisodes.removeAllViews();
                 recyclerViewTvSeries.removeAllViews();
                 recyclerViewGenre.removeAllViews();
 
                 listMovie.clear();
                 listSeries.clear();
                 listSlider.clear();
-                listTv.clear();
+                listEpisodes.clear();
                 listGenre.clear();
 
 
                 if (new NetworkInst(getContext()).isNetworkAvailable()){
-                    getFeaturedTV();
+                    getLatestEpisodes();
                     getSlider(apiResources.getSlider());
                     getLatestSeries();
                     getLatestMovie();
@@ -246,9 +245,10 @@ public class HomeFragment extends Fragment {
         btnMoreTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),ItemTVActivity.class);
-                intent.putExtra("url",apiResources.getGet_live_tv());
-                intent.putExtra("title","Live TV");
+
+                Intent intent = new Intent(getContext(), ItemEpiActivity.class);
+                intent.putExtra("url",apiResources.getLatestEpisodes());
+                intent.putExtra("title","Anime");
                 getActivity().startActivity(intent);
             }
         });
@@ -488,13 +488,46 @@ public class HomeFragment extends Fragment {
                         models.setTitle(jsonObject.getString("tv_name"));
                         models.setVideoType("tv");
                         models.setId(jsonObject.getString("live_tv_id"));
-                        listTv.add(models);
+                        //listTv.add(models);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                adapterTv.notifyDataSetChanged();
+                adapterEpisodes.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        singleton.addToRequestQueue(jsonArrayRequest);
+
+    }
+
+    private void getLatestEpisodes(){
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, apiResources.getLatestEpisodes(), null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                swipeRefreshLayout.setRefreshing(false);
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                for (int i=0;i<response.length();i++){
+                    try {
+                        JSONObject jsonObject=response.getJSONObject(i);
+                        CommonModels models =new CommonModels();
+                        models.setImageUrl(jsonObject.getString("thumbnail_url"));
+                        models.setTitle(jsonObject.getString("title"));
+                        models.setVideoType("epi");
+                        models.setId(jsonObject.getString("episodes_id"));
+                        listEpisodes.add(models);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                adapterEpisodes.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override

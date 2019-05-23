@@ -56,10 +56,7 @@ public class DirectorApater extends RecyclerView.Adapter<DirectorApater.Original
 
 
                 Intent intent=new Intent(ctx, AnimePlayerActivity.class);
-                intent.putExtra("title",obj.getTitle());
-                intent.putExtra("epi",obj.getEpi());
-                intent.putExtra("url",obj.getStreamURL());
-                intent.putExtra("file_type",obj.getServerType());
+                intent.putExtra("id",obj.getEpiID());
                 ctx.startActivity(intent);
 
             }

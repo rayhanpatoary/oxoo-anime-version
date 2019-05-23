@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.anime.spagreen.utils.ApiResources;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private SwitchCompat switchCompat,switcDarkMode;
@@ -86,7 +88,10 @@ public class SettingsActivity extends AppCompatActivity {
         tvTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SettingsActivity.this,TermsActivity.class));
+
+                Intent intent = new Intent(SettingsActivity.this,TermsActivity.class);
+                intent.putExtra("url",new ApiResources().getTermsURL());
+                startActivity(intent);
             }
         });
 

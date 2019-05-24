@@ -22,6 +22,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AnimePlayerActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="screenLayout|screenSize|orientation"
             android:label="@string/title_activity_anime_player"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

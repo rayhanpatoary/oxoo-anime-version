@@ -3,12 +3,22 @@ package com.anime.spagreen;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -16,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.anime.spagreen.adapters.CommonGridAdapter;
@@ -35,22 +46,32 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
 
     private String query="";
-
     private TextView tvTitle;
-
     private ShimmerFrameLayout shimmerFrameLayout;
     private RecyclerView recyclerView;
     private CommonGridAdapter mAdapter;
     private List<CommonModels> list =new ArrayList<>();
-
     private ApiResources apiResources;
-
     private String URL=null;
     private boolean isLoading=false;
     private ProgressBar progressBar;
     private int pageCount=1;
-
     private CoordinatorLayout coordinatorLayout;
+
+
+
+
+
+    private GenreAdapter genreAdapter,typeAdapter,seasonAdapter;
+    private List<CommonModels> listGenre=new ArrayList<>();
+    private List<CommonModels> listType=new ArrayList<>();
+    private List<CommonModels> listSeason=new ArrayList<>();
+    private RecyclerView rvGenres,rvSeasons,rvTypes;
+
+    private Button btnSearch;
+    private String strGenre="",strTypes="",strSeasons="";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,24 +79,27 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Search Result");
+        getSupportActionBar().setTitle("Search");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        query = getIntent().getStringExtra("q");
-
-        tvTitle=findViewById(R.id.title);
-
-        tvTitle.setText("Showing Result for : "+query );
-
-
-
+        btnSearch=findViewById(R.id.btn_search);
         progressBar=findViewById(R.id.item_progress_bar);
-        shimmerFrameLayout=findViewById(R.id.shimmer_view_container);
-        shimmerFrameLayout.startShimmer();
 
+        rvGenres=findViewById(R.id.rv_genre);
+        rvGenres.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        genreAdapter=new GenreAdapter(listGenre,this,"genre");
+        rvGenres.setAdapter(genreAdapter);
 
+        rvTypes=findViewById(R.id.rv_type);
+        rvTypes.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        typeAdapter=new GenreAdapter(listType,this,"type");
+        rvTypes.setAdapter(typeAdapter);
 
-        URL=new ApiResources().getSearchUrl()+"&&q="+query+"&&page=";
+        rvSeasons=findViewById(R.id.rv_season);
+        rvSeasons.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        seasonAdapter=new GenreAdapter(listSeason,this,"season");
+        rvSeasons.setAdapter(seasonAdapter);
+
 
         coordinatorLayout=findViewById(R.id.coordinator_lyt);
         recyclerView = findViewById(R.id.recyclerView);
@@ -84,45 +108,164 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         mAdapter = new CommonGridAdapter(this, list);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onClick(View v) {
 
-                if (!recyclerView.canScrollVertically(1) && !isLoading) {
+                String url = new ApiResources().getAdvanceSearch()+"&genre_ids="+strGenre.substring(1)+"&types"+strTypes.substring(1)+"&sersion="+strSeasons.substring(1);
+                getData(url);
 
-                    pageCount=pageCount+1;
-                    isLoading = true;
-
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    getData(URL,pageCount);
-                }
             }
         });
-
-
-        getData(URL,pageCount);
-
+        getItemData(new ApiResources().getSearchItem());
     }
 
 
 
-    private void getData(String url,int pageNum){
+    private void getItemData(String url){
 
-        String fullUrl = url+String.valueOf(pageNum);
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
 
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, fullUrl, null, new Response.Listener<JSONArray>() {
+                try {
+
+                    JSONArray jsonGenre=response.getJSONArray("genres");
+                    for (int i = 0;i<jsonGenre.length();i++){
+                        JSONObject jsonObject= jsonGenre.getJSONObject(i);
+
+                        CommonModels models=new CommonModels();
+                        models.setTitle(jsonObject.getString("name"));
+                        models.setId(jsonObject.getString("genre_id"));
+
+                        listGenre.add(models);
+
+                    }
+                    genreAdapter.notifyDataSetChanged();
+
+                    JSONArray jsonTypes=response.getJSONArray("types");
+                    for (int j = 0;j<jsonTypes.length();j++){
+                        JSONObject jsonObject= jsonTypes.getJSONObject(j);
+
+                        CommonModels models=new CommonModels();
+                        models.setTitle(jsonObject.getString("type"));
+                        models.setId(jsonObject.getString("id"));
+
+                        listType.add(models);
+
+                    }
+                    typeAdapter.notifyDataSetChanged();
+
+                    JSONArray jsonSeasons=response.getJSONArray("seasions");
+                    for (int k = 0;k<jsonSeasons.length();k++){
+                        JSONObject jsonObject= jsonSeasons.getJSONObject(k);
+
+                        CommonModels models=new CommonModels();
+                        models.setTitle(jsonObject.getString("title"));
+                        models.setId(jsonObject.getString("id"));
+
+                        listSeason.add(models);
+
+                    }
+                    seasonAdapter.notifyDataSetChanged();
+
+
+                }catch (Exception e){
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        Volley.newRequestQueue(SearchActivity.this).add(jsonObjectRequest);
+    }
+
+
+
+    public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.MyViewHolder>   {
+
+        private List<CommonModels> list=new ArrayList<>();
+        private Context context;
+        private String type;
+
+        public GenreAdapter(List<CommonModels> list, Context context,String type) {
+            this.list = list;
+            this.context = context;
+            this.type=type;
+        }
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view= LayoutInflater.from(context).inflate(R.layout.card_item,parent,false);
+            return new MyViewHolder(view);
+        }
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+
+            final CommonModels models=list.get(position);
+            holder.textView.setText(models.getTitle());
+            holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    if (isChecked){
+                        if (type.equals("genre")){
+                            strGenre=strGenre+","+models.getId();
+                        }else if (type.equals("type")){
+                            strTypes=strTypes+","+models.getId();
+                        }else if (type.equals("season")){
+                            strSeasons=strSeasons+","+models.getId();
+                        }
+
+                    }else {
+                        if (type.equals("genre")){
+                            strGenre = strGenre.replace(","+models.getId(),"");
+                        }else if (type.equals("type")){
+                            strTypes = strTypes.replace(","+models.getId(),"");
+                        }else if (type.equals("season")){
+                            strSeasons = strSeasons.replace(","+models.getId(),"");
+                        }
+                    }
+                }
+            });
+        }
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+        class MyViewHolder extends RecyclerView.ViewHolder{
+            TextView textView;
+            CheckBox checkBox;
+            public MyViewHolder(View itemView) {
+                super(itemView);
+                textView=itemView.findViewById(R.id.tv_title);
+                checkBox=itemView.findViewById(R.id.checkbox);
+            }
+        }
+    }
+
+
+
+
+    private void getData(String url){
+
+        Log.e("URL::",url);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
                 isLoading=false;
                 progressBar.setVisibility(View.GONE);
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
 
                 if (String.valueOf(response).length()<50 && pageCount ==1){
-                    coordinatorLayout.setVisibility(View.VISIBLE);
+                    new ToastMsg(SearchActivity.this).toastIconError("There is no data..");
                 }
 
                 for (int i=0;i<response.length();i++){
@@ -153,9 +296,6 @@ public class SearchActivity extends AppCompatActivity {
                 isLoading=false;
                 progressBar.setVisibility(View.GONE);
                 new ToastMsg(SearchActivity.this).toastIconError(getString(R.string.fetch_error));
-                if (pageCount==1){
-                    coordinatorLayout.setVisibility(View.VISIBLE);
-                }
 
 
             }

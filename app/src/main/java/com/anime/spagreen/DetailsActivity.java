@@ -299,10 +299,9 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                String url = new ApiResources().getAddFav()+"&&user_id="+preferences.getString("id","0")+"&&videos_id="+id;
-
+                String url = new ApiResources().getMovieWishList()+"&&user_id="+preferences.getString("id","0")+"&&videos_id="+id+"&&type=favorite";
                 if (isFav){
-                    String removeURL = new ApiResources().getRemoveFav()+"&&user_id="+preferences.getString("id","0")+"&&videos_id="+id;
+                    String removeURL = new ApiResources().getRemoveMovieWishList()+"&&user_id="+preferences.getString("id","0")+"&&videos_id="+id+"&&type=favorite";
                     removeFromFav(removeURL);
                 }else {
                     addToFav(url);
@@ -414,7 +413,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
 
             SharedPreferences sharedPreferences=getSharedPreferences("user",MODE_PRIVATE);
-            String url = new ApiResources().getFavStatusURl()+"&&user_id="+sharedPreferences.getString("id","0")+"&&videos_id="+id;
+            String url = new ApiResources().getCheckMovieWishList()+"&&user_id="+sharedPreferences.getString("id","0")+"&&videos_id="+id;
 
             if (sharedPreferences.getBoolean("status",false)){
                 getFavStatus(url);
@@ -1038,10 +1037,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
         new VolleySingleton(DetailsActivity.this).addToRequestQueue(jsonObjectRequest);
-
-
     }
-
 
     private void getFavStatus(String url){
 

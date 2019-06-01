@@ -38,28 +38,35 @@
             android:orientation="vertical"
             android:padding="@dimen/spacing_large">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Two Line"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="@android:color/black" />
 
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="Two Line"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/aired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Two Line"
+                android:textColor="@android:color/black" />
 
-                <View
-                    android:layout_width="@dimen/spacing_medium"
-                    android:layout_height="0dp" />
+            <TextView
+                android:id="@+id/runtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Two Line"
+                android:textColor="@android:color/black" />
 
 
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -72,6 +79,10 @@
 
         </LinearLayout>
 
+        <View
+            android:background="@color/grey_40"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
 
     </LinearLayout>
 

@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/75/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_report_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/76/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_history_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -44,8 +44,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_report" />
-                                      <entry key="themeColor" value="ffffff" />
+                                      <entry key="outputName" value="ic_history_black" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
                                 </PersistentState>

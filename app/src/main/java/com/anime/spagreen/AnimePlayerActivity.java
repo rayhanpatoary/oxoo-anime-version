@@ -69,7 +69,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
 
     public WebView webView;
     public ProgressBar progressBar;
-    public boolean isPlaying,isFullScr;
+    public boolean isPlaying,isFullScr,isFav=false,isWatched=false,isWatchLater=false;
 
     public View playerLayout;
     private int playerHeight;
@@ -77,10 +77,10 @@ public class AnimePlayerActivity extends AppCompatActivity {
     public static RelativeLayout lPlay;
 
     private TextView tvTitle,tvEpi,tvPrev,tvNext;
-    private LinearLayout lHeader,lAddFav;
+    private LinearLayout lHeader,lAddFav,lWatchLater,lWatched;
     private boolean hasPrev=false,hasNext=false;
     private String prevID="0",nextID="0",videoID="0";
-    private ImageView imgFav;
+    private ImageView imgFav,imgWatched,imgWatchLater;
     private View progressView;
 
 
@@ -110,6 +110,10 @@ public class AnimePlayerActivity extends AppCompatActivity {
         tvNext=findViewById(R.id.tv_next);
         imgFav=findViewById(R.id.image_fav);
         progressView=findViewById(R.id.progress_view);
+        lWatched=findViewById(R.id.ll_watched);
+        lWatchLater=findViewById(R.id.ll_watch_later);
+        imgWatched=findViewById(R.id.img_watched);
+        imgWatchLater=findViewById(R.id.img_watch_later);
 
 
         final String id = getIntent().getStringExtra("id");
@@ -175,43 +179,139 @@ public class AnimePlayerActivity extends AppCompatActivity {
         lAddFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
-
                 if (preferences.getBoolean("status",false)){
-
-                    String url = new ApiResources().getAddFav()+"&&user_id="+preferences.getString("id","0")+"&&videos_id="+videoID+"&&ep_id="+id;
-
-
-                    addToFav(url);
-
-
+                    if (isFav){
+                        String url = new ApiResources().getRemoveWishList()+"&&user_id="+preferences.getString("id","0")+"&&ep_id="+id+"&&type=favorite";
+                        addToWishList(url,"fav","remove");
+                    }else {
+                        String url = new ApiResources().getWishList()+"&&user_id="+preferences.getString("id","0")+"&&ep_id="+id+"&&type=favorite";
+                        addToWishList(url,"fav","add");
+                    }
                 }else {
                     startActivity(new Intent(AnimePlayerActivity.this,LoginActivity.class));
                 }
-
-
-
-
             }
         });
 
-        getData(url);
+        lWatchLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
+                if (preferences.getBoolean("status",false)){
+                    if (isWatchLater){
+                        String url = new ApiResources().getRemoveWishList()+"&user_id="+preferences.getString("id","0")+"&ep_id="+id+"&type=watch_later";
+                        addToWishList(url,"watch_later","remove");
+                    }else {
+                        String url = new ApiResources().getWishList()+"&user_id="+preferences.getString("id","0")+"&ep_id="+id+"&type=watch_later";
+                        addToWishList(url,"watch_later","add");
+                    }
+                }else {
+                    startActivity(new Intent(AnimePlayerActivity.this,LoginActivity.class));
+                }
+            }
+        });
+        lWatched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
+                if (preferences.getBoolean("status",false)){
+                    if (isWatched){
+                        String url = new ApiResources().getRemoveWishList()+"&&user_id="+preferences.getString("id","0")+"&&ep_id="+id+"&type=watched";
+                        addToWishList(url,"watched","remove");
+                    }else {
+                        String url = new ApiResources().getWishList()+"&&user_id="+preferences.getString("id","0")+"&&ep_id="+id+"&type=watched";
+                        addToWishList(url,"watched","add");
+                    }
+                }else {
+                    startActivity(new Intent(AnimePlayerActivity.this,LoginActivity.class));
+                }
+            }
+        });
 
+
+        SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
+        if (preferences.getBoolean("status",false)){
+            String url1 = new ApiResources().getCheckEpiWishList()+"&&user_id="+preferences.getString("id","0")+"&&ep_id="+id;
+            checkWishList(url1);
+        }
+        getData(url);
     }
 
 
-    private void addToFav(String url){
+    private void checkWishList(String url) {
+
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
                 try {
 
+                    JSONObject jsonObject = response.getJSONObject("wishlist");
+
+                    if (jsonObject.getString("favorite").equals("1")){
+                        isFav=true;
+                        imgFav.setImageDrawable(getResources().getDrawable(R.drawable.outline_favorite_24));
+                    }
+                    if (jsonObject.getString("watched").equals("1")){
+                        isWatched=true;
+                        imgWatched.setImageDrawable(getResources().getDrawable(R.drawable.ic_done_green));
+                    }
+                    if (jsonObject.getString("watch_later").equals("1")){
+                        isWatchLater=true;
+                        imgWatchLater.setImageDrawable(getResources().getDrawable(R.drawable.ic_history_black));
+                    }
+
+                }catch (Exception e){
+
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        Volley.newRequestQueue(AnimePlayerActivity.this).add(jsonObjectRequest);
+
+
+    }
+
+    private void addToWishList(String url, final String type, final String action){
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
                     if (response.getString("status").equals("success")){
                         new ToastMsg(AnimePlayerActivity.this).toastIconSuccess(response.getString("message"));
-                        //isFav=true;
-                        imgFav.setBackgroundResource(R.drawable.outline_favorite_24);
+                        if (action.equals("add")){
+                            if (type.equals("fav")){
+                                imgFav.setImageDrawable(getResources().getDrawable(R.drawable.outline_favorite_24));
+                                isFav=true;
+                            }else if (type.equals("watched")){
+                                imgWatched.setImageDrawable(getResources().getDrawable(R.drawable.ic_done_green));
+                                isWatched=true;
+                            }else if (type.equals("watch_later")){
+                                imgWatchLater.setImageDrawable(getResources().getDrawable(R.drawable.ic_history_black));
+                                isWatchLater=true;
+                            }
+
+                        }else {
+                            if (type.equals("fav")){
+                                imgFav.setImageDrawable(getResources().getDrawable(R.drawable.outline_favorite_border_24));
+                                isFav=false;
+                            }else if (type.equals("watched")){
+                                imgWatched.setImageDrawable(getResources().getDrawable(R.drawable.ic_done_black));
+                                isWatched=false;
+                            }else if (type.equals("watch_later")){
+                                imgWatchLater.setImageDrawable(getResources().getDrawable(R.drawable.ic_history));
+                                isWatchLater=false;
+                            }
+                        }
                     }else {
                         new ToastMsg(AnimePlayerActivity.this).toastIconError(response.getString("message"));
                     }
@@ -230,10 +330,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
             }
         });
         new VolleySingleton(AnimePlayerActivity.this).addToRequestQueue(jsonObjectRequest);
-
-
     }
-
 
 
     private void getData(String url){

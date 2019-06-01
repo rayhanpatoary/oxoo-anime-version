@@ -82,6 +82,65 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
+                            <TextView
+                                android:id="@+id/tv_details"
+                                android:textAppearance="@style/TextAppearance.Small"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <RelativeLayout
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                            android:id="@+id/genre"
+                            android:textColor="@color/black"
+                            android:textAppearance="@style/TextAppearance.Medium.Bold"
+                            android:text="@string/genre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                            <TextView
+                            android:id="@+id/tv_genre"
+                            android:textAppearance="@style/TextAppearance.Medium.Bold"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/genre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/genre"
+                            android:layout_marginStart="10dp" />
+                            <!--<androidx.recyclerview.widget.RecyclerView-->
+                            <!--android:visibility="gone"-->
+                            <!--android:layout_toRightOf="@id/director"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_toEndOf="@id/director">-->
+
+                            <!--</androidx.recyclerview.widget.RecyclerView>-->
+
+                            </RelativeLayout>
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_marginTop="5dp"-->
+                                <!--android:orientation="vertical"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content">-->
+
+                                <!--<TextView-->
+                                    <!--android:textColor="@color/black"-->
+                                    <!--android:text="@string/genre"-->
+                                    <!--android:textAppearance="@style/TextAppearance.Medium.Bold"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content" />-->
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_genre"-->
+                                    <!--android:textAppearance="@style/TextAppearance.Small"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content" />-->
+
+
+                            <!--</LinearLayout>-->
                             <RelativeLayout
                                 android:layout_marginTop="5dp"
                                 android:layout_width="match_parent"
@@ -104,16 +163,28 @@
                                     android:layout_height="wrap_content"
                                     android:layout_toEndOf="@id/director"
                                     android:layout_marginStart="10dp" />
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:visibility="gone"
-                                    android:layout_toRightOf="@id/director"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toEndOf="@id/director">
-
-                                </androidx.recyclerview.widget.RecyclerView>
-
                             </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/cast"
+                                    android:textColor="@color/black"
+                                    android:text="@string/cast_n_crew"
+                                    android:textAppearance="@style/TextAppearance.Medium.Bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <TextView
+                                    android:id="@+id/tv_cast"
+                                    android:layout_marginStart="10dp"
+                                    android:textAppearance="@style/TextAppearance.Small"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
 
                             <RelativeLayout
                                 android:layout_marginTop="8dp"
@@ -121,63 +192,24 @@
                                 android:layout_height="wrap_content">
 
                                 <TextView
-                                    android:id="@+id/tv_release_date"
+                                    android:id="@+id/aired"
+                                    android:textColor="@color/black"
                                     android:textAppearance="@style/TextAppearance.Medium.Bold"
+                                    android:text="Aired"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
 
+                                <TextView
+                                    android:id="@+id/tv_release_date"
+                                    android:textAppearance="@style/TextAppearance.Medium.Bold"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/aired"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toEndOf="@id/aired"
+                                    android:layout_marginStart="10dp" />
+
                             </RelativeLayout>
-
-                            <View
-                                android:layout_marginTop="5dp"
-                                android:background="@color/grey_20"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"/>
-                            <LinearLayout
-                                android:layout_marginTop="5dp"
-                                android:orientation="vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:textColor="@color/black"
-                                    android:text="@string/genre"
-                                    android:textAppearance="@style/TextAppearance.Medium.Bold"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:id="@+id/tv_genre"
-                                    android:textAppearance="@style/TextAppearance.Small"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_marginTop="5dp"
-                                android:background="@color/grey_20"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"/>
-
-                            <LinearLayout
-                                android:layout_marginTop="5dp"
-                                android:orientation="vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <TextView
-                                    android:textColor="@color/black"
-                                    android:text="@string/cast_n_crew"
-                                    android:textAppearance="@style/TextAppearance.Medium.Bold"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                                <TextView
-                                    android:id="@+id/tv_cast"
-                                    android:textAppearance="@style/TextAppearance.Small"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
 
 
                         </LinearLayout>
@@ -186,26 +218,26 @@
                             android:background="@color/grey_20"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
-                        <LinearLayout
-                            android:padding="10dp"
-                            android:layout_marginTop="5dp"
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                        <!--<LinearLayout-->
+                            <!--android:padding="10dp"-->
+                            <!--android:layout_marginTop="5dp"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content">-->
 
-                            <TextView
-                                android:textColor="@color/black"
-                                android:text="@string/description"
-                                android:textAppearance="@style/TextAppearance.Medium.Bold"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:id="@+id/tv_details"
-                                android:textAppearance="@style/TextAppearance.Small"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                            <!--<TextView-->
+                                <!--android:textColor="@color/black"-->
+                                <!--android:text="@string/description"-->
+                                <!--android:textAppearance="@style/TextAppearance.Medium.Bold"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content" />-->
+                            <!--<TextView-->
+                                <!--android:id="@+id/tv_details"-->
+                                <!--android:textAppearance="@style/TextAppearance.Small"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content" />-->
 
-                        </LinearLayout>
+                        <!--</LinearLayout>-->
 
 
                     </LinearLayout>
@@ -216,6 +248,7 @@
                         android:layout_height="1dp"/>
 
                     <LinearLayout
+                        android:id="@+id/ll_watch_later"
                         android:layout_margin="10dp"
                         android:padding="5dp"
                         android:background="@color/white"
@@ -225,6 +258,7 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/img_watch_later"
                             app:srcCompat="@drawable/ic_history"
                             android:layout_width="30dp"
                             android:layout_height="30dp" />
@@ -238,6 +272,7 @@
 
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/ll_watched"
                         android:padding="5dp"
                         android:layout_margin="10dp"
                         android:background="@color/white"
@@ -246,6 +281,7 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/img_watched"
                             app:srcCompat="@drawable/ic_done_black"
                             android:layout_width="30dp"
                             android:layout_height="30dp" />
@@ -259,7 +295,7 @@
 
                     </LinearLayout>
                     <LinearLayout
-                        android:id="@+id/add_fav"
+                        android:id="@+id/ll_fav"
                         android:padding="5dp"
                         android:background="@color/white"
                         android:layout_margin="10dp"

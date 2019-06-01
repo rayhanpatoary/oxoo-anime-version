@@ -48,6 +48,8 @@ public class AnimeRelatedAdapter extends RecyclerView.Adapter<AnimeRelatedAdapte
         holder.name.setText(obj.getTitle());
         Picasso.get().load(obj.getImageUrl()).into(holder.image);
 
+        holder.aired.setText("Aired: "+obj.getAired());
+        holder.time.setText("Runtime: "+obj.getRunTime());
 
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,9 +79,6 @@ public class AnimeRelatedAdapter extends RecyclerView.Adapter<AnimeRelatedAdapte
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     ctx.startActivity(intent);
                 }
-
-
-
             }
         });
 
@@ -93,7 +92,7 @@ public class AnimeRelatedAdapter extends RecyclerView.Adapter<AnimeRelatedAdapte
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView image;
-        public TextView name;
+        public TextView name,aired,time;
         public MaterialRippleLayout lyt_parent;
 
 
@@ -102,6 +101,8 @@ public class AnimeRelatedAdapter extends RecyclerView.Adapter<AnimeRelatedAdapte
             image = v.findViewById(R.id.image);
             name = v.findViewById(R.id.name);
             lyt_parent=v.findViewById(R.id.lyt_parent);
+            aired=v.findViewById(R.id.aired);
+            time=v.findViewById(R.id.runtime);
         }
     }
 

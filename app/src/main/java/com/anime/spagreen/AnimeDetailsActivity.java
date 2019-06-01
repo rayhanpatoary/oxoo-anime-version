@@ -1,6 +1,7 @@
 package com.anime.spagreen;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
 import com.anime.spagreen.fragments.AnimeDetailsFragment;
@@ -80,5 +81,15 @@ public class AnimeDetailsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

@@ -172,12 +172,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_watched"
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/img_watched"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_done_black"
                     android:layout_width="30sp"
@@ -193,12 +195,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_watch_later"
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/img_watch_later"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_history"
                     android:layout_width="30sp"

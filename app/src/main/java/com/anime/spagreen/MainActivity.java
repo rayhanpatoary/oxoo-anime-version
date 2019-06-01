@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
 import com.anime.spagreen.fragments.AnimeFragment;
+import com.anime.spagreen.nav_fragments.WatchLaterFragment;
 import com.anime.spagreen.utils.ApiResources;
 import com.google.android.material.navigation.NavigationView;
 
@@ -243,7 +244,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intentf = new Intent(MainActivity.this,FeedBackActivity.class);
                 startActivity(intentf);
                 break;
-
+            case R.id.nav_watch_later:
+                loadFragment(new WatchLaterFragment());
+                menuItem.setChecked(true);
+                break;
+            case R.id.nav_search:
+                Intent intents = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intents);
+                break;
         }
         mDrawerLayout.closeDrawers();
         return true;

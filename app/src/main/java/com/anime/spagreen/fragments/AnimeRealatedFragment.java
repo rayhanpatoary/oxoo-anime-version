@@ -1,6 +1,7 @@
 package com.anime.spagreen.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,9 +81,6 @@ public class AnimeRealatedFragment extends Fragment {
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-//                swipeRefreshLayout.setRefreshing(false);
-//                shimmerFrameLayout.stopShimmer();
-//                shimmerFrameLayout.setVisibility(GONE);
                 progressBar.setVisibility(View.GONE);
                 try {
 
@@ -101,11 +99,12 @@ public class AnimeRealatedFragment extends Fragment {
                         models.setImageUrl(jsonObject.getString("thumbnail_url"));
                         models.setId(jsonObject.getString("videos_id"));
                         models.setVideoType("tvseries");
+                        models.setAired(jsonObject.getString("release"));
+                        models.setRunTime(jsonObject.getString("runtime"));
 
                         listRelated.add(models);
                     }
                     relatedAdapter.notifyDataSetChanged();
-
 
                 }catch (Exception e){
 
@@ -125,9 +124,5 @@ public class AnimeRealatedFragment extends Fragment {
 
 
     }
-
-
-
-
 
 }

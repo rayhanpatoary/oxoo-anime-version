@@ -2,7 +2,6 @@ package com.anime.spagreen.nav_fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.anime.spagreen.R;
@@ -42,7 +40,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class AnimeFavFragment  extends Fragment {
+public class AnimeWatchLaterFragment extends Fragment {
 
     private ShimmerFrameLayout shimmerFrameLayout;
     private RecyclerView recyclerView;
@@ -60,19 +58,12 @@ public class AnimeFavFragment  extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_movies,null);
+        return inflater.inflate(R.layout.fragment_movies,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle(getResources().getString(R.string.fav));
-
-        initComponent(view);
-
-    }
-
-    private void initComponent(View view) {
 
         apiResources=new ApiResources();
         swipeRefreshLayout=view.findViewById(R.id.swipe_layout);
@@ -83,9 +74,9 @@ public class AnimeFavFragment  extends Fragment {
         tvNoItem=view.findViewById(R.id.tv_noitem);
 
         SharedPreferences prefs = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-        String id = prefs.getString("id", null);
+        String id = prefs.getString("id", "0");
 
-        final String URl = apiResources.getFavoriteUrl()+"&&user_id="+id;
+        final String URl = apiResources.getWatchLater()+"&&user_id="+id;
 
 
         //----movie's recycler view-----------------
@@ -162,6 +153,8 @@ public class AnimeFavFragment  extends Fragment {
                             }else {
                                 models.setVideoType("movie");
                             }
+
+
                             models.setId(jsonObject.getString("videos_id"));
 
                             list.add(models);
@@ -191,8 +184,9 @@ public class AnimeFavFragment  extends Fragment {
                 coordinatorLayout.setVisibility(View.VISIBLE);
             }
         });
-        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+        Volley.newRequestQueue(getActivity()).add(jsonObjectRequest);
 
     }
+
 
 }

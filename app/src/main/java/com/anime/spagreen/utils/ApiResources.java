@@ -9,7 +9,6 @@ public class ApiResources {
 
     String API_SECRECT_KEY = "api_secret_key="+MyAppClass.getContext().getString(R.string.api_key);
 
-
     String slider = URL+"get_slider?"+API_SECRECT_KEY;
     String latest_movie = URL+"get_latest_movies?"+API_SECRECT_KEY;
     String get_movie = URL+"get_movies?"+API_SECRECT_KEY+"&&page=";
@@ -58,6 +57,51 @@ public class ApiResources {
     String episodeDetails = URL+"get_single_details?"+API_SECRECT_KEY;
     String aboutUS = "http://ovoo.spagreen.net/about/";
     String sendFeedback=URL+"feedback?"+API_SECRECT_KEY;
+    String watchLater = URL+"get_watch_later?"+API_SECRECT_KEY;
+    String wishList = URL+"add_ep_to_wish_list?"+API_SECRECT_KEY;
+    String movieWishList = URL+"add_movie_to_wish_list?"+API_SECRECT_KEY;
+    String checkEpiWishList = URL+"check_ep_wish_list?"+API_SECRECT_KEY;
+    String removeWishList = URL+"remove_ep_from_wish_list?"+API_SECRECT_KEY;
+    String removeMovieWishList = URL+"remove_movie_from_wish_list?"+API_SECRECT_KEY;
+    String checkMovieWishList = URL+"check_movie_wish_list?"+API_SECRECT_KEY;
+    String searchItem = URL+"get_all_search_item?"+API_SECRECT_KEY;
+    String advanceSearch = URL+"advance_search?"+API_SECRECT_KEY;
+
+    public String getAdvanceSearch() {
+        return advanceSearch;
+    }
+
+    public String getSearchItem() {
+        return searchItem;
+    }
+
+    public String getRemoveMovieWishList() {
+        return removeMovieWishList;
+    }
+
+    public String getCheckMovieWishList() {
+        return checkMovieWishList;
+    }
+
+    public String getRemoveWishList() {
+        return removeWishList;
+    }
+
+    public String getMovieWishList() {
+        return movieWishList;
+    }
+
+    public String getCheckEpiWishList() {
+        return checkEpiWishList;
+    }
+
+    public String getWishList() {
+        return wishList;
+    }
+
+    public String getWatchLater() {
+        return watchLater;
+    }
 
     public String getSendFeedback() {
         return sendFeedback;

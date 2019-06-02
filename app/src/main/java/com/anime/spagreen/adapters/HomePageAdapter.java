@@ -93,7 +93,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Origin
 
         public ImageView image;
         public TextView name;
-        public MaterialRippleLayout lyt_parent;
+        public View lyt_parent;
 
 
         public OriginalViewHolder(View v) {

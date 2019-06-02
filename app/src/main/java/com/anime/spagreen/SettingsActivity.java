@@ -3,6 +3,8 @@ package com.anime.spagreen;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -27,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 
         switchCompat=findViewById(R.id.notify_switch);
         tvTerms=findViewById(R.id.tv_term);

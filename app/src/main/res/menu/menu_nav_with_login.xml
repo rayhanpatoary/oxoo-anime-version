@@ -29,7 +29,7 @@
             android:title="Favorite"/>
         <item
             android:id="@+id/nav_watch_later"
-            android:icon="@drawable/ic_action_search"
+            android:icon="@drawable/ic_history_black"
             android:title="Watch Later"/>
         <item
             android:id="@+id/nav_logout"

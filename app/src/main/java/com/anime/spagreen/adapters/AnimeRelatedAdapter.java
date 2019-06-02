@@ -48,8 +48,20 @@ public class AnimeRelatedAdapter extends RecyclerView.Adapter<AnimeRelatedAdapte
         holder.name.setText(obj.getTitle());
         Picasso.get().load(obj.getImageUrl()).into(holder.image);
 
-        holder.aired.setText("Aired: "+obj.getAired());
-        holder.time.setText("Runtime: "+obj.getRunTime());
+        try {
+
+            holder.aired.setText("Aired: "+obj.getAired());
+            holder.status.setText("Status: "+obj.getStatus());
+            holder.epi.setText("Episodes: "+obj.getEpisodes());
+            holder.type.setText("type: "+obj.getType());
+
+
+        }catch (Exception e){
+
+        }
+
+
+
 
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +104,8 @@ public class AnimeRelatedAdapter extends RecyclerView.Adapter<AnimeRelatedAdapte
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView image;
-        public TextView name,aired,time;
-        public MaterialRippleLayout lyt_parent;
+        public TextView name,aired,epi,status,type;
+        public View lyt_parent;
 
 
         public OriginalViewHolder(View v) {
@@ -102,7 +114,9 @@ public class AnimeRelatedAdapter extends RecyclerView.Adapter<AnimeRelatedAdapte
             name = v.findViewById(R.id.name);
             lyt_parent=v.findViewById(R.id.lyt_parent);
             aired=v.findViewById(R.id.aired);
-            time=v.findViewById(R.id.runtime);
+            epi=v.findViewById(R.id.tv_epi);
+            status=v.findViewById(R.id.tv_status);
+            type=v.findViewById(R.id.tv_type);
         }
     }
 

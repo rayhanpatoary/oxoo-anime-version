@@ -2,6 +2,8 @@ package com.anime.spagreen;
 
 import android.app.ProgressDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
@@ -34,6 +36,9 @@ public class PassResetActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Reset");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+
+
 
         etEmail=findViewById(R.id.email);
         btnReset=findViewById(R.id.reset_pass);

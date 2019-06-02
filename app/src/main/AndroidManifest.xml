@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".FeedBackActivity"
-            android:label="Feedback"></activity>
+            android:label="Feedback"
+            android:theme="@style/AppTheme.Nobar"></activity>
         <activity
             android:name=".ItemEpiActivity"
             android:label="@string/title_activity_item_anime"

@@ -20,16 +20,10 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.Original
     private List<CommonModels> items = new ArrayList<>();
     private Context ctx;
 
-
-
-
     public EpisodeAdapter(Context context, List<CommonModels> items) {
         this.items = items;
         ctx = context;
-
     }
-
-
     @Override
     public EpisodeAdapter.OriginalViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         EpisodeAdapter.OriginalViewHolder vh;
@@ -42,10 +36,8 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.Original
     public void onBindViewHolder(EpisodeAdapter.OriginalViewHolder holder, final int position) {
 
         CommonModels obj = items.get(position);
-        holder.name.setText("Season : "+obj.getTitle());
 
-        DirectorApater directorApater=new DirectorApater(ctx,obj.getListEpi(),obj.getTitle());
-        Log.e("List", String.valueOf(obj.getTitle()));
+        DirectorApater directorApater=new DirectorApater(ctx,obj.getListEpi());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setAdapter(directorApater);
@@ -58,14 +50,11 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.Original
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView name;
         public RecyclerView recyclerView;
 
 
         public OriginalViewHolder(View v) {
             super(v);
-            name = v.findViewById(R.id.name);
             recyclerView=v.findViewById(R.id.recyclerView);
 
 

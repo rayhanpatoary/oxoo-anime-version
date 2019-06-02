@@ -1,5 +1,6 @@
 package com.anime.spagreen;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -63,6 +64,7 @@ public class ItemMovieActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(getIntent().getStringExtra("title"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         adView=findViewById(R.id.adView);
         coordinatorLayout=findViewById(R.id.coordinator_lyt);
         progressBar=findViewById(R.id.item_progress_bar);

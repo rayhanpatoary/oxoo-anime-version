@@ -38,7 +38,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class AnimeDetailsFragment extends Fragment {
 
 
-    private TextView tvName,tvDirector,tvRelease,tvCast,tvDes,tvGenre,tvRelated;
+    private TextView tvName,tvPremier,tvRelease,tvRating,tvDes,tvGenre,tvEpi,tvStatus,tvType;
     private String strDirector="",strCast="",strGenre="",type="",id="";
     private ImageView imageView,imageViewThumb,imgFav,imgWatched,imgWatchLater;
     private View progressBar;
@@ -58,10 +58,10 @@ public class AnimeDetailsFragment extends Fragment {
 
 
         tvDes=view.findViewById(R.id.tv_details);
-        tvCast=view.findViewById(R.id.tv_cast);
+        tvPremier=view.findViewById(R.id.tv_premier);
         tvRelease=view.findViewById(R.id.tv_release_date);
         tvName=view.findViewById(R.id.text_name);
-        tvDirector=view.findViewById(R.id.tv_director);
+        //tvRating=view.findViewById(R.id.tv_rating);
         tvGenre=view.findViewById(R.id.tv_genre);
         imageView=view.findViewById(R.id.imageview);
         imageViewThumb=view.findViewById(R.id.imageview_thumb);
@@ -72,6 +72,9 @@ public class AnimeDetailsFragment extends Fragment {
         lWatchLater=view.findViewById(R.id.ll_watch_later);
         imgWatched=view.findViewById(R.id.img_watched);
         imgWatchLater=view.findViewById(R.id.img_watch_later);
+        tvEpi=view.findViewById(R.id.tv_epi);
+        tvStatus=view.findViewById(R.id.tv_status);
+        tvType=view.findViewById(R.id.tv_type);
 
         type = getActivity().getIntent().getStringExtra("vType");
         id = getActivity().getIntent().getStringExtra("id");
@@ -254,42 +257,22 @@ public class AnimeDetailsFragment extends Fragment {
 
                 try {
                     tvName.setText(response.getString("title"));
-                    tvRelease.setText(response.getString("release"));
+                    tvRelease.setText(response.getString("aired"));
                     tvDes.setText(response.getString("description"));
                     Picasso.get().load(response.getString("poster_url")).into(imageView);
                     Picasso.get().load(response.getString("thumbnail_url")).into(imageViewThumb);
 
-                    //----director---------------
-                    JSONArray directorArray = response.getJSONArray("director");
-                    for (int i = 0;i<directorArray.length();i++){
-                        JSONObject jsonObject=directorArray.getJSONObject(i);
-                        if (i==directorArray.length()-1){
-                            strDirector=strDirector+jsonObject.getString("name");
-                        }else {
-                            strDirector=strDirector+jsonObject.getString("name")+",";
-                        }
-                    }
-                    tvDirector.setText(strDirector);
 
-
-                    //----cast---------------
-                    JSONArray castArray = response.getJSONArray("cast");
-                    for (int i = 0;i<castArray.length();i++){
-                        JSONObject jsonObject=castArray.getJSONObject(i);
-                        if (i==castArray.length()-1){
-                            strCast=strCast+jsonObject.getString("name");
-                        }else {
-                            strCast=strCast+jsonObject.getString("name")+",";
-                        }
-                    }
-                    tvCast.setText(strCast);
-
+                    tvPremier.setText(response.getString("premiered"));
+                    //tvEpi.setText(response.getString("epis"));
+                    tvStatus.setText(response.getString("status"));
+                    tvType.setText(response.getString("type"));
 
                     //---genre---------------
                     JSONArray genreArray = response.getJSONArray("genre");
                     for (int i = 0;i<genreArray.length();i++){
                         JSONObject jsonObject=genreArray.getJSONObject(i);
-                        if (i==castArray.length()-1){
+                        if (i==genreArray.length()-1){
                             strGenre=strGenre+jsonObject.getString("name");
                         }else {
                             strGenre=strGenre+jsonObject.getString("name")+",";

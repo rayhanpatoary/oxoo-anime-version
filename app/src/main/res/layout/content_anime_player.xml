@@ -217,6 +217,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_report"
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_weight="1"

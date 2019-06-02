@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.anime.spagreen.R;
+import com.anime.spagreen.adapters.DirectorApater;
 import com.anime.spagreen.adapters.EpisodeAdapter;
 import com.anime.spagreen.models.CommonModels;
 import com.anime.spagreen.models.EpiModel;
@@ -34,8 +35,8 @@ import java.util.List;
 public class AnimeEpisodeFragment extends Fragment {
 
 
-    private List<CommonModels> listEpisodes =new ArrayList<>();
-    private EpisodeAdapter episodeAdapter;
+    private List<EpiModel> listEpisodes =new ArrayList<>();
+    private DirectorApater episodeAdapter;
     private RecyclerView rvEpisode;
     private String type="",id="";
     private ImageView imageView;
@@ -57,7 +58,7 @@ public class AnimeEpisodeFragment extends Fragment {
         progressBar=view.findViewById(R.id.progressBar);
 
 
-        episodeAdapter=new EpisodeAdapter(getContext(),listEpisodes);
+        episodeAdapter=new DirectorApater(getContext(),listEpisodes);
         rvEpisode.setLayoutManager(new LinearLayoutManager(getContext()));
         rvEpisode.setHasFixedSize(true);
         rvEpisode.setAdapter(episodeAdapter);
@@ -96,45 +97,22 @@ public class AnimeEpisodeFragment extends Fragment {
                     Picasso.get().load(response.getString("poster_url")).into(imageView);
 
                     //----episode------------
-                    JSONArray mainArray = response.getJSONArray("season");
+                    JSONArray episodeArray=response.getJSONArray("episodes");
 
+                    for (int j=0;j<episodeArray.length();j++){
 
-                    for (int i = 0;i<mainArray.length();i++){
-                        //epList.clear();
+                        JSONObject object =episodeArray.getJSONObject(j);
 
-                        JSONObject jsonObject=mainArray.getJSONObject(i);
-
-                        CommonModels models=new CommonModels();
-                        String season_name=jsonObject.getString("seasons_name");
-                        models.setTitle(jsonObject.getString("seasons_name"));
-
-
-                        //Log.e("Season Name 1::",jsonObject.getString("seasons_name"));
-
-                        JSONArray episodeArray=jsonObject.getJSONArray("episodes");
-                        List<EpiModel> epList=new ArrayList<>();
-
-                        for (int j=0;j<episodeArray.length();j++){
-
-                            JSONObject object =episodeArray.getJSONObject(j);
-
-                            EpiModel model=new EpiModel();
-                            model.setSeson(season_name);
-                            model.setEpi(object.getString("episodes_name"));
-                            model.setStreamURL(object.getString("file_url"));
-                            model.setTitle(response.getString("title"));
-                            model.setServerType(object.getString("file_type"));
-                            model.setEpiID(object.getString("episodes_id"));
-                            epList.add(model);
-                        }
-                        models.setListEpi(epList);
-                        listEpisodes.add(models);
-
-                        episodeAdapter=new EpisodeAdapter(getContext(),listEpisodes);
-                        rvEpisode.setAdapter(episodeAdapter);
-                        episodeAdapter.notifyDataSetChanged();
-
+                        EpiModel model=new EpiModel();
+                        model.setStreamURL(object.getString("file_url"));
+                        model.setEpi(object.getString("episodes_name"));
+                        model.setServerType(object.getString("file_type"));
+                        model.setEpiID(object.getString("episodes_id"));
+                        listEpisodes.add(model);
                     }
+                    episodeAdapter.notifyDataSetChanged();
+
+
 
 
                 }catch (Exception e){

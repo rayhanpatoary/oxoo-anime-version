@@ -17,11 +17,35 @@ public class CommonModels {
     public String videoType;
     public String serverType;
     public List<EpiModel> listEpi=new ArrayList<>();
-    String aired,runTime;
+    String aired,runTime,status,type,episodes;
     //-----tv item------------
     String tvName,posterUrl;
     //ArrayList<EpiModel> epiModels;
 
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getEpisodes() {
+        return episodes;
+    }
+
+    public void setEpisodes(String episodes) {
+        this.episodes = episodes;
+    }
 
     public String getRunTime() {
         return runTime;

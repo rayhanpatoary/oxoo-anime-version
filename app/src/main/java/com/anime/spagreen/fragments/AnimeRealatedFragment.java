@@ -84,10 +84,7 @@ public class AnimeRealatedFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 try {
 
-
                     Picasso.get().load(response.getString("poster_url")).into(imageView);
-
-
 
                     //----realted post---------------
                     JSONArray relatedArray = response.getJSONArray("related_tvseries");
@@ -100,7 +97,9 @@ public class AnimeRealatedFragment extends Fragment {
                         models.setId(jsonObject.getString("videos_id"));
                         models.setVideoType("tvseries");
                         models.setAired(jsonObject.getString("release"));
-                        models.setRunTime(jsonObject.getString("runtime"));
+                        models.setEpisodes(jsonObject.getString("episodes"));
+                        models.setStatus(jsonObject.getString("status"));
+                        models.setType(jsonObject.getString("type"));
 
                         listRelated.add(models);
                     }

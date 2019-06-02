@@ -1,5 +1,6 @@
 package com.anime.spagreen;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -33,6 +34,7 @@ public class AnimeDetailsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 
         viewPager =  findViewById(R.id.pager);
         setupViewPager(viewPager);

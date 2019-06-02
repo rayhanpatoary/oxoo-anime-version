@@ -1,5 +1,6 @@
 package com.anime.spagreen;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -66,9 +67,9 @@ public class ItemEpiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_anime);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setTitle("Anime");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 
 
         initComponent();

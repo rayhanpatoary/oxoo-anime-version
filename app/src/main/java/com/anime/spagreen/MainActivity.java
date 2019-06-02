@@ -17,6 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 
         navigationView = findViewById(R.id.nav_view);
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -151,24 +154,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.action_search:
-
-                final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String s) {
-
-                        Intent intent=new Intent(MainActivity.this,SearchActivity.class);
-                        intent.putExtra("q",s);
-                        startActivity(intent);
-
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String s) {
-                        return false;
-                    }
-                });
+                Intent intent=new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
 
                 return true;
 

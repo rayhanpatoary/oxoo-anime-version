@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -77,7 +78,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
     public static RelativeLayout lPlay;
 
     private TextView tvTitle,tvEpi,tvPrev,tvNext;
-    private LinearLayout lHeader,lAddFav,lWatchLater,lWatched;
+    private LinearLayout lHeader,lAddFav,lWatchLater,lWatched,lReport;
     private boolean hasPrev=false,hasNext=false;
     private String prevID="0",nextID="0",videoID="0";
     private ImageView imgFav,imgWatched,imgWatchLater;
@@ -90,7 +91,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anime_player);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setTitle("Anime");
 
         simpleExoPlayerView = findViewById(R.id.video_view);
@@ -114,6 +115,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
         lWatchLater=findViewById(R.id.ll_watch_later);
         imgWatched=findViewById(R.id.img_watched);
         imgWatchLater=findViewById(R.id.img_watch_later);
+        lReport=findViewById(R.id.ll_report);
 
 
         final String id = getIntent().getStringExtra("id");
@@ -226,6 +228,13 @@ public class AnimePlayerActivity extends AppCompatActivity {
                 }else {
                     startActivity(new Intent(AnimePlayerActivity.this,LoginActivity.class));
                 }
+            }
+        });
+        lReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentf = new Intent(AnimePlayerActivity.this,FeedBackActivity.class);
+                startActivity(intentf);
             }
         });
 

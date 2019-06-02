@@ -23,15 +23,8 @@ public class DirectorApater extends RecyclerView.Adapter<DirectorApater.Original
     private Context ctx;
     final DirectorApater.OriginalViewHolder[] viewHolderArray = {null};
 
-    public DirectorApater(Context context, List<EpiModel> items,String name) {
-        ArrayList<EpiModel> arrayList=new ArrayList<>();
-        for(int i=0;i<items.size();i++){
-            if(items.get(i).getSeson().equals(name)){
-                arrayList.add(items.get(i));
-            }
-        }
-
-        this.items = arrayList;
+    public DirectorApater(Context context, List<EpiModel> items) {
+        this.items = items;
         ctx = context;
     }
 
@@ -48,12 +41,11 @@ public class DirectorApater extends RecyclerView.Adapter<DirectorApater.Original
     public void onBindViewHolder(final DirectorApater.OriginalViewHolder holder, final int position) {
 
         final EpiModel obj = items.get(position);
-        holder.name.setText("Episode : "+obj.getEpi());
+        holder.name.setText(obj.getEpi());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 Intent intent=new Intent(ctx, AnimePlayerActivity.class);
                 intent.putExtra("id",obj.getEpiID());

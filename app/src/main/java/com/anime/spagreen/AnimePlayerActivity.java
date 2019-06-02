@@ -91,6 +91,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anime_player);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setTitle("Anime");
 

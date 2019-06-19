@@ -18,7 +18,7 @@ import com.anime.spagreen.utils.ApiResources;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private SwitchCompat switchCompat,switcDarkMode;
+    private SwitchCompat switchCompat;
     private TextView tvTerms;
 
     @Override
@@ -33,7 +33,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         switchCompat=findViewById(R.id.notify_switch);
         tvTerms=findViewById(R.id.tv_term);
-        switcDarkMode=findViewById(R.id.mode_switch);
 
 
         SharedPreferences preferences=getSharedPreferences("push",MODE_PRIVATE);
@@ -41,12 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
             switchCompat.setChecked(true);
         }else {
             switchCompat.setChecked(false);
-        }
-
-        if (preferences.getBoolean("dark",false)){
-            switcDarkMode.setChecked(true);
-        }else {
-            switcDarkMode.setChecked(false);
         }
 
 
@@ -63,27 +56,6 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.putBoolean("status",false);
                     editor.apply();
                 }
-            }
-        });
-
-
-        switcDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    SharedPreferences.Editor editor = getSharedPreferences("push", MODE_PRIVATE).edit();
-                    editor.putBoolean("dark",true);
-                    editor.apply();
-
-
-                }else {
-                    SharedPreferences.Editor editor = getSharedPreferences("push", MODE_PRIVATE).edit();
-                    editor.putBoolean("dark",false);
-                    editor.apply();
-                }
-
-                startActivity(new Intent(SettingsActivity.this,SplashscreenActivity.class));
-                finish();
             }
         });
 

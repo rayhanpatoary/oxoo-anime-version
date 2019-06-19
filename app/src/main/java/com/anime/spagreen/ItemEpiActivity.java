@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -155,6 +156,7 @@ public class ItemEpiActivity extends AppCompatActivity {
 
         String fullUrl = url+"&&limit="+String.valueOf(pageNum);
 
+        Log.e("URL::",fullUrl);
 
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, fullUrl, null, new Response.Listener<JSONArray>() {
             @Override
@@ -171,6 +173,7 @@ public class ItemEpiActivity extends AppCompatActivity {
                         models.setImageUrl(jsonObject.getString("thumbnail_url"));
                         models.setTitle(jsonObject.getString("title"));
                         models.setVideoType("epi");
+                        models.setEpisodeName(jsonObject.getString("episodes_name"));
                         models.setId(jsonObject.getString("episodes_id"));
                         listEpisodes.add(models);
 

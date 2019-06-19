@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CommonModels {
 
-    public String id;
+    public String id,episodeName;
     public int image;
     public String imageUrl;
     public Drawable imageDrw;
@@ -22,6 +22,14 @@ public class CommonModels {
     String tvName,posterUrl;
     //ArrayList<EpiModel> epiModels;
 
+
+    public String getEpisodeName() {
+        return episodeName;
+    }
+
+    public void setEpisodeName(String episodeName) {
+        this.episodeName = episodeName;
+    }
 
     public String getStatus() {
         return status;

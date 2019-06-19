@@ -47,6 +47,12 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Origin
         holder.name.setText(obj.getTitle());
         Picasso.get().load(obj.getImageUrl()).into(holder.image);
 
+        if (obj.getVideoType().equals("epi")){
+            holder.epiName.setVisibility(View.VISIBLE);
+            holder.epiName.setText("Episode: "+obj.getEpisodeName());
+        }
+
+
 
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +98,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Origin
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView image;
-        public TextView name;
+        public TextView name,epiName;
         public View lyt_parent;
 
 
@@ -101,6 +107,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Origin
             image = v.findViewById(R.id.image);
             name = v.findViewById(R.id.name);
             lyt_parent=v.findViewById(R.id.lyt_parent);
+            epiName=v.findViewById(R.id.tv_epi);
         }
     }
 

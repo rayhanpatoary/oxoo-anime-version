@@ -175,6 +175,7 @@ public class AnimeFragment extends Fragment {
                         models.setImageUrl(jsonObject.getString("thumbnail_url"));
                         models.setTitle(jsonObject.getString("title"));
                         models.setVideoType("epi");
+                        models.setEpisodeName(jsonObject.getString("episodes_name"));
                         models.setId(jsonObject.getString("episodes_id"));
                         listEpisodes.add(models);
 

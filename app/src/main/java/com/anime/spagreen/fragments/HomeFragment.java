@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
     private ShimmerFrameLayout shimmerFrameLayout;
     private RecyclerView recyclerViewMovie,recyclerViewEpisodes,recyclerViewTvSeries,recyclerViewGenre;
     private HomePageAdapter adapterMovie,adapterSeries,adapterEpisodes;
-//    private HomePageAdapter adapterTv;
     private List<CommonModels> listMovie =new ArrayList<>();
     private List<CommonModels> listEpisodes =new ArrayList<>();
     private List<CommonModels> listSeries =new ArrayList<>();
@@ -472,39 +471,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void getFeaturedTV(){
-
-        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, apiResources.getGet_featured_tv(), null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                swipeRefreshLayout.setRefreshing(false);
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
-                for (int i=0;i<response.length();i++){
-                    try {
-                        JSONObject jsonObject=response.getJSONObject(i);
-                        CommonModels models =new CommonModels();
-                        models.setImageUrl(jsonObject.getString("poster_url"));
-                        models.setTitle(jsonObject.getString("tv_name"));
-                        models.setVideoType("tv");
-                        models.setId(jsonObject.getString("live_tv_id"));
-                        //listTv.add(models);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                adapterEpisodes.notifyDataSetChanged();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-        singleton.addToRequestQueue(jsonArrayRequest);
-
-    }
-
     private void getLatestEpisodes(){
 
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(Request.Method.GET, apiResources.getLatestEpisodes(), null, new Response.Listener<JSONArray>() {
@@ -520,6 +486,7 @@ public class HomeFragment extends Fragment {
                         models.setImageUrl(jsonObject.getString("thumbnail_url"));
                         models.setTitle(jsonObject.getString("title"));
                         models.setVideoType("epi");
+                        models.setEpisodeName(jsonObject.getString("episodes_name"));
                         models.setId(jsonObject.getString("episodes_id"));
                         listEpisodes.add(models);
 

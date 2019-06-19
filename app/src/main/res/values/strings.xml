@@ -20,7 +20,7 @@
     <!-- Admob app ID-->
     <string name="admob_app_id">ca-app-pub-8804184340526788~7833821786</string>
     <!--Admob baner ad ID-->
-    <string name="admob_ad_id">ca-app-pub-8804184340526788/4860830623</string>
+    <string name="admob_ad_id">ca-app-pub-3940256099942544/6300978111</string>
     <!--Admob interstitial ad ID-->
     <string name="admob_full_ad_id">cca-app-pub-8804184340526788/1356699880</string>
 

@@ -62,10 +62,6 @@ public class SearchActivity extends AppCompatActivity {
     private int pageCount=1;
     private CoordinatorLayout coordinatorLayout;
 
-
-
-
-
     private GenreAdapter genreAdapter,typeAdapter,seasonAdapter;
     private List<CommonModels> listGenre=new ArrayList<>();
     private List<CommonModels> listType=new ArrayList<>();
@@ -118,14 +114,36 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String url = new ApiResources().getAdvanceSearch()+"&genre_ids="+strGenre.substring(1)+"&types"+strTypes.substring(1)+"&sersion="+strSeasons.substring(1);
-                getData(url);
+                if (strGenre.equals("") && strTypes.equals("") && strSeasons.equals("")){
+                }else {
 
+
+                    String genre = getSubString(strGenre);
+                    String type = getSubString(strTypes);
+                    String season = getSubString(strSeasons);
+
+                    try {
+                        String url = new ApiResources().getAdvanceSearch()+"&genre_ids="+genre+"&types"+type+"&sersion="+season;
+                        getData(url);
+                    }catch (Exception e){
+
+                    }
+
+
+                }
             }
         });
         getItemData(new ApiResources().getSearchItem());
     }
 
+
+    private String getSubString(String s){
+
+        if (s.equals(""))
+            return "";
+        else
+            return s.substring(1);
+    }
 
 
     private void getItemData(String url){

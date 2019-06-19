@@ -23,6 +23,8 @@ import com.anime.spagreen.adapters.HomePageAdapter;
 import com.anime.spagreen.models.CommonModels;
 import com.anime.spagreen.utils.ApiResources;
 import com.anime.spagreen.utils.VolleySingleton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -40,6 +42,8 @@ public class AnimeRealatedFragment extends Fragment {
 
     private AnimeRelatedAdapter relatedAdapter;
     private View progressBar;
+    private AdView adView;
+
 
     @Nullable
     @Override
@@ -52,6 +56,7 @@ public class AnimeRealatedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        adView=view.findViewById(R.id.adView);
         imageView=view.findViewById(R.id.imageview);
         rvRelated=view.findViewById(R.id.rv_related);
         progressBar=view.findViewById(R.id.progressBar);
@@ -65,6 +70,9 @@ public class AnimeRealatedFragment extends Fragment {
 
         type = getActivity().getIntent().getStringExtra("vType");
         id = getActivity().getIntent().getStringExtra("id");
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
 
         getSeriesData(type,id);

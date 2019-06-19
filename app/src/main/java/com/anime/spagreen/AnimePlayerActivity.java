@@ -36,6 +36,8 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -83,6 +85,8 @@ public class AnimePlayerActivity extends AppCompatActivity {
     private String prevID="0",nextID="0",videoID="0";
     private ImageView imgFav,imgWatched,imgWatchLater;
     private View progressView;
+    private AdView adView;
+
 
 
     @Override
@@ -95,6 +99,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setTitle("Anime");
 
+        adView=findViewById(R.id.adView);
         simpleExoPlayerView = findViewById(R.id.video_view);
         subtitleView=findViewById(R.id.subtitle);
         webView=findViewById(R.id.webView);
@@ -245,6 +250,11 @@ public class AnimePlayerActivity extends AppCompatActivity {
             String url1 = new ApiResources().getCheckEpiWishList()+"&&user_id="+preferences.getString("id","0")+"&&ep_id="+id;
             checkWishList(url1);
         }
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+
         getData(url);
     }
 
@@ -580,9 +590,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
         MediaSource videoSource = new HlsMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(uri);
 
-
         return videoSource;
-
 
     }
 
@@ -594,7 +602,49 @@ public class AnimePlayerActivity extends AppCompatActivity {
                 createMediaSource(uri);
 
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        releasePlayer();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.e("ACTIVITY:::","RESUME");
+        //startPlayer();
+        if(player!=null){
+            Log.e("PLAY:::","RESUME");
+            player.setPlayWhenReady(true);
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.e("ACTIVITY:::","PAUSE"+isPlaying);
+
+        if (isPlaying && player!=null){
+
+            //Log.e("PLAY:::","PAUSE");
+
+            player.setPlayWhenReady(false);
+        }
+    }
 
 
+    public void releasePlayer() {
 
+        if (player != null) {
+            player.setPlayWhenReady(true);
+            player.stop();
+            player.release();
+            player = null;
+            simpleExoPlayerView.setPlayer(null);
+            simpleExoPlayerView = null;
+            System.out.println("releasePlayer");
+        }
+    }
 }

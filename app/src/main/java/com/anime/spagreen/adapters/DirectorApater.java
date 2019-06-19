@@ -64,7 +64,7 @@ public class DirectorApater extends RecyclerView.Adapter<DirectorApater.Original
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
-        public CardView cardView;
+        public View cardView;
 
 
         public OriginalViewHolder(View v) {

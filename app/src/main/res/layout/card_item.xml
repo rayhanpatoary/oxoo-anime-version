@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/grey_400"
-    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/grey_300"
+    app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:padding="2dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,15 +18,16 @@
             android:layout_marginStart="5dp"
             android:gravity="center"
             android:textSize="12sp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_marginStart="5dp"
+            android:scaleX="0.70"
+            android:scaleY="0.70"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>

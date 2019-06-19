@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ import com.anime.spagreen.models.CommonModels;
 import com.anime.spagreen.models.EpiModel;
 import com.anime.spagreen.utils.ApiResources;
 import com.anime.spagreen.utils.VolleySingleton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,12 +38,14 @@ import java.util.List;
 public class AnimeEpisodeFragment extends Fragment {
 
 
+    private TextView tvName;
     private List<EpiModel> listEpisodes =new ArrayList<>();
     private DirectorApater episodeAdapter;
     private RecyclerView rvEpisode;
     private String type="",id="";
-    private ImageView imageView;
+    private ImageView imageView,imageViewThumb;
     private View progressBar;
+    private AdView adView;
 
 
     @Nullable
@@ -53,9 +58,12 @@ public class AnimeEpisodeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        adView=view.findViewById(R.id.adView);
         rvEpisode=view.findViewById(R.id.rv_episode_list);
         imageView=view.findViewById(R.id.imageview);
         progressBar=view.findViewById(R.id.progressBar);
+        imageViewThumb=view.findViewById(R.id.imageview_thumb);
+        tvName=view.findViewById(R.id.text_name);
 
 
         episodeAdapter=new DirectorApater(getContext(),listEpisodes);
@@ -67,6 +75,9 @@ public class AnimeEpisodeFragment extends Fragment {
 
         type = getActivity().getIntent().getStringExtra("vType");
         id = getActivity().getIntent().getStringExtra("id");
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
 
         getSeriesData(type,id);
@@ -87,13 +98,11 @@ public class AnimeEpisodeFragment extends Fragment {
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-//                swipeRefreshLayout.setRefreshing(false);
-//                shimmerFrameLayout.stopShimmer();
-//                shimmerFrameLayout.setVisibility(GONE);
                 progressBar.setVisibility(View.GONE);
                 try {
 
-
+                    tvName.setText(response.getString("title"));
+                    Picasso.get().load(response.getString("thumbnail_url")).into(imageViewThumb);
                     Picasso.get().load(response.getString("poster_url")).into(imageView);
 
                     //----episode------------

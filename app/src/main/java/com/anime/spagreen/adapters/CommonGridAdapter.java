@@ -47,6 +47,11 @@ public class CommonGridAdapter extends RecyclerView.Adapter<CommonGridAdapter.Or
         holder.name.setText(obj.getTitle());
         Picasso.get().load(obj.getImageUrl()).into(holder.image);
 
+        if (obj.getVideoType().equals("epi")){
+            holder.epiName.setVisibility(View.VISIBLE);
+            holder.epiName.setText("Episode: "+obj.getEpisodeName());
+        }
+
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +90,7 @@ public class CommonGridAdapter extends RecyclerView.Adapter<CommonGridAdapter.Or
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView image;
-        public TextView name;
+        public TextView name,epiName;
         public View lyt_parent;
 
 
@@ -94,6 +99,7 @@ public class CommonGridAdapter extends RecyclerView.Adapter<CommonGridAdapter.Or
             image = v.findViewById(R.id.image);
             name = v.findViewById(R.id.name);
             lyt_parent = v.findViewById(R.id.lyt_parent);
+            epiName=v.findViewById(R.id.tv_epi);
         }
 
     }

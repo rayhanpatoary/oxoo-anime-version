@@ -11,30 +11,12 @@ import android.os.Bundle;
 public class SplashscreenActivity extends AppCompatActivity {
 
     private int SPLASH_TIME = 2000;
-    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_splashscreen);
-
         getSupportActionBar().hide();
-
-
-        //----dark mode----------
-        preferences=getSharedPreferences("push",MODE_PRIVATE);
-        if (preferences.getBoolean("dark",false)){
-            AppCompatDelegate
-                    .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
-            AppCompatDelegate
-                    .setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
-
-
-
 
 
         Thread timer = new Thread() {

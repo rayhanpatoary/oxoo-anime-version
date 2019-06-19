@@ -28,6 +28,8 @@ import com.anime.spagreen.R;
 import com.anime.spagreen.utils.ApiResources;
 import com.anime.spagreen.utils.ToastMsg;
 import com.anime.spagreen.utils.VolleySingleton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -44,7 +46,7 @@ public class AnimeDetailsFragment extends Fragment {
     private View progressBar;
     private boolean isFav=false,isWatched=false,isWatchLater=false;
     private LinearLayout lAddFav,lWatchLater,lWatched;
-
+    private AdView adView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class AnimeDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        adView=view.findViewById(R.id.adView);
         tvDes=view.findViewById(R.id.tv_details);
         tvPremier=view.findViewById(R.id.tv_premier);
         tvRelease=view.findViewById(R.id.tv_release_date);
@@ -140,9 +142,10 @@ public class AnimeDetailsFragment extends Fragment {
             Log.e("CHECK::",url1);
         }
 
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         getSeriesData(type,id);
-
 
     }
 

@@ -55,7 +55,7 @@ public class ApiResources {
     String latestEpisodes = URL+"get_latest_episodes?"+API_SECRECT_KEY;
     String addEpisodeToFav = URL+"add_favorite?"+API_SECRECT_KEY;
     String episodeDetails = URL+"get_single_details?"+API_SECRECT_KEY;
-    String aboutUS = "http://ovoo.spagreen.net/about/";
+    String aboutUS = MyAppClass.getContext().getString(R.string.about_url);
     String sendFeedback=URL+"feedback?"+API_SECRECT_KEY;
     String watchLater = URL+"get_watch_later?"+API_SECRECT_KEY;
     String wishList = URL+"add_ep_to_wish_list?"+API_SECRECT_KEY;

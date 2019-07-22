@@ -10,10 +10,11 @@ import com.anime.spagreen.nav_fragments.WatchLaterFragment;
 import com.anime.spagreen.utils.ApiResources;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,10 +25,12 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anime.spagreen.fragments.HomeFragment;
@@ -42,19 +45,20 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity  {
 
 
-    private DrawerLayout mDrawerLayout;
-    private Toolbar toolbar;
+    DrawerLayout mDrawerLayout;
+    Toolbar toolbar;
 
-    private List<NavigationModel> list =new ArrayList<>();
-   // private NavigationView navigationView;
+    ImageView img_drawer;
+    List<NavigationModel> list =new ArrayList<>();
+    NavigationView navigationView;
     //private String[] navItemImage;
 
     //private String[] navItemName2;
     //private String[] navItemImage2;
     private boolean status=false;
 
-    private SharedPreferences preferences;
-    private TextView tvLogin,tvRegister;
+    SharedPreferences preferences;
+    TextView tvLogin,tvRegister;
 
 
     @Override
@@ -62,21 +66,26 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        img_drawer=findViewById(R.id.img_drawer);
         //----init---------------------------
-        toolbar = findViewById(R.id.toolbar);
+        /*toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-
-        //navigationView = findViewById(R.id.nav_view);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);*/
+        //toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         mDrawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
        // View header = navigationView.getHeaderView(0);
-        //tvLogin = header.findViewById(R.id.tv_login);
-       // tvRegister = header.findViewById(R.id.tv_register);
+        tvLogin = findViewById(R.id.tv_login);
+        tvRegister = findViewById(R.id.tv_register);
 
+        img_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
         //---check if login or not--------
         SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
         status = prefs.getBoolean("status",false);
@@ -164,7 +173,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 */
 
-    @Override
+   /* @Override
     public void onBackPressed() {
 
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -188,7 +197,7 @@ public class MainActivity extends AppCompatActivity  {
 
         }
     }
-
+*/
     //----nav menu item click---------------
    /* @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

@@ -32,9 +32,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
-    
-        <include
 
+        <include
             layout="@layout/menu_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

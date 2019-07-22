@@ -10,11 +10,11 @@
 
     <!--API -->
     <!-- copy your api url from php admin dashboard & paste bellow string tag -->
-    <string name="api_url">http://redtvlive.com/api/</string>
+    <string name="api_url">http://redtvlive.com/anime/api/</string>
     <!-- copy your api key from php admin dashboard & paste bellow string tag -->
     <string name="api_key">inwgyd7rz1f755jzmn7b4eho</string>
-    <string name="terms_url">http://redtvlive.com/terms/</string>
-    <string name="about_url">http://redtvlive.com/about/</string>
+    <string name="terms_url">http://redtvlive.com/anime/terms/</string>
+    <string name="about_url">http://redtvlive.com/anime/about/</string>
 
     <!--Admob-->
     <!-- Admob app ID-->

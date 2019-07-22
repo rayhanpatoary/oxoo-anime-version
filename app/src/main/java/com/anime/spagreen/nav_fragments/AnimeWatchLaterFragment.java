@@ -64,6 +64,7 @@ public class AnimeWatchLaterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Watch Later");
 
         apiResources=new ApiResources();
         swipeRefreshLayout=view.findViewById(R.id.swipe_layout);

@@ -86,6 +86,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
     private ImageView imgFav,imgWatched,imgWatchLater;
     private View progressView;
     private AdView adView;
+//    public static ImageView imgBack;
 
 
 
@@ -94,7 +95,16 @@ public class AnimePlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anime_player);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //stopActivityTask();
+                releasePlayer();
+                finish();
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setTitle("Anime");
@@ -144,11 +154,12 @@ public class AnimePlayerActivity extends AppCompatActivity {
                 if (isFullScr){
                     lHeader.setVisibility(VISIBLE);
                     isFullScr=false;
+                    getSupportActionBar().show();
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                     lPlay.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, playerHeight));
                 }else {
-
+                    getSupportActionBar().hide();
                     isFullScr=true;
                     lHeader.setVisibility(GONE);
                     lPlay.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
@@ -256,6 +267,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
 
 
         getData(url);
+
     }
 
 
@@ -361,6 +373,9 @@ public class AnimePlayerActivity extends AppCompatActivity {
                 progressView.setVisibility(GONE);
 
                 try {
+
+//                    change title
+                    getSupportActionBar().setTitle(response.getString("title"));
 
                     tvTitle.setText(response.getString("title"));
                     tvEpi.setText(response.getString("episodes_name"));
@@ -606,6 +621,7 @@ public class AnimePlayerActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         releasePlayer();
+        finish();
     }
     @Override
     protected void onResume() {

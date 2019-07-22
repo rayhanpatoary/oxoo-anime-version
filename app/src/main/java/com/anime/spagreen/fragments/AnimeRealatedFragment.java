@@ -104,7 +104,7 @@ public class AnimeRealatedFragment extends Fragment {
                         models.setImageUrl(jsonObject.getString("thumbnail_url"));
                         models.setId(jsonObject.getString("videos_id"));
                         models.setVideoType("tvseries");
-                        models.setAired(jsonObject.getString("release"));
+                        models.setAired(jsonObject.getString("aired"));
                         models.setEpisodes(jsonObject.getString("episodes"));
                         models.setStatus(jsonObject.getString("status"));
                         models.setType(jsonObject.getString("type"));

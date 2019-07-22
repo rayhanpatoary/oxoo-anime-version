@@ -39,18 +39,18 @@ import com.anime.spagreen.nav_fragments.FavoriteFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity  {
 
 
     private DrawerLayout mDrawerLayout;
     private Toolbar toolbar;
 
     private List<NavigationModel> list =new ArrayList<>();
-    private NavigationView navigationView;
-    private String[] navItemImage;
+   // private NavigationView navigationView;
+    //private String[] navItemImage;
 
-    private String[] navItemName2;
-    private String[] navItemImage2;
+    //private String[] navItemName2;
+    //private String[] navItemImage2;
     private boolean status=false;
 
     private SharedPreferences preferences;
@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
 
-        navigationView = findViewById(R.id.nav_view);
+        //navigationView = findViewById(R.id.nav_view);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        View header = navigationView.getHeaderView(0);
-        tvLogin = header.findViewById(R.id.tv_login);
-        tvRegister = header.findViewById(R.id.tv_register);
+       // View header = navigationView.getHeaderView(0);
+        //tvLogin = header.findViewById(R.id.tv_login);
+       // tvRegister = header.findViewById(R.id.tv_register);
 
         //---check if login or not--------
         SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
@@ -90,15 +90,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         preferences=getSharedPreferences("push",MODE_PRIVATE);
 
         //----navDrawer------------------------
-        if (status){
+        /*if (status){
             navigationView.inflateMenu(R.menu.menu_nav_with_login);
             tvLogin.setVisibility(View.GONE);
             tvRegister.setVisibility(View.GONE);
         }else {
             navigationView.inflateMenu(R.menu.menu_nav_without_login);
-        }
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(0).setChecked(true);
+        } */
+       // navigationView.setNavigationItemSelectedListener(this);
+       // navigationView.getMenu().getItem(0).setChecked(true);
 
 
 
@@ -124,12 +124,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_action, menu);
         return true;
-    }
+    }*/
 
 
     private boolean loadFragment(Fragment fragment){
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
 
     }
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
+*/
 
     @Override
     public void onBackPressed() {
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //----nav menu item click---------------
-    @Override
+   /* @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         switch (menuItem.getItemId()){
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         mDrawerLayout.closeDrawers();
         return true;
-    }
+    } */
 
     private void logOutDialog(){
 

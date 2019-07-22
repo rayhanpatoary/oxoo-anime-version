@@ -161,9 +161,7 @@ public class SearchActivity extends AppCompatActivity {
                         CommonModels models=new CommonModels();
                         models.setTitle(jsonObject.getString("name"));
                         models.setId(jsonObject.getString("genre_id"));
-
                         listGenre.add(models);
-
                     }
                     genreAdapter.notifyDataSetChanged();
 

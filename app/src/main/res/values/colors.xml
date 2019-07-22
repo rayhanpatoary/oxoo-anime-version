@@ -53,5 +53,7 @@
     <!--for random color generator -->
 
     <color name="black_overlay">#66000000</color>
+    <color name="normal_tint">#666666</color>
+
 
 </resources>

@@ -5,31 +5,31 @@
 
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/outline_home_24"
+            android:icon="@drawable/home"
             android:title="Home"/>
         <item
             android:id="@+id/nav_latest_epi"
-            android:icon="@drawable/exo_controls_play"
+            android:icon="@drawable/play_arrow"
             android:title="Latest Episodes"/>
         <item
             android:id="@+id/nav_movies"
-            android:icon="@drawable/outline_movie_24"
+            android:icon="@drawable/movie"
             android:title="Anime Movies"/>
         <item
             android:id="@+id/nav_tv_series"
-            android:icon="@drawable/outline_movie_24"
+            android:icon="@drawable/video_library"
             android:title="Anime TV Series"/>
         <item
             android:id="@+id/nav_search"
-            android:icon="@drawable/ic_action_search"
+            android:icon="@drawable/search"
             android:title="Search"/>
         <item
             android:id="@+id/nav_fav"
-            android:icon="@drawable/outline_favorite_24"
+            android:icon="@drawable/favorite"
             android:title="Favorite"/>
         <item
             android:id="@+id/nav_watch_later"
-            android:icon="@drawable/ic_history_black"
+            android:icon="@drawable/watch_later"
             android:title="Watch Later"/>
         <item
             android:id="@+id/nav_logout"
@@ -44,15 +44,15 @@
             <item
                 android:id="@+id/nav_feedback"
                 android:title="Feedback"
-                android:icon="@drawable/outline_folder_24"/>
+                android:icon="@drawable/feedback"/>
             <item
                 android:id="@+id/nav_about"
                 android:title="About Us"
-                android:icon="@drawable/outline_folder_24"/>
+                android:icon="@drawable/info"/>
             <item
                 android:id="@+id/nav_settings"
                 android:title="Settings"
-                android:icon="@drawable/outline_settings_24"/>
+                android:icon="@drawable/settings"/>
 
         </menu>
     </item>

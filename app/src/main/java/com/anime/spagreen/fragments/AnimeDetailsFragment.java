@@ -267,7 +267,7 @@ public class AnimeDetailsFragment extends Fragment {
 
 
                     tvPremier.setText(response.getString("premiered"));
-                    //tvEpi.setText(response.getString("epis"));
+                    tvEpi.setText(response.getString("total_episodes"));
                     tvStatus.setText(response.getString("status"));
                     tvType.setText(response.getString("type"));
 
